@@ -1,0 +1,15 @@
+.add {
+  font-weight: bold;
+}
+
+.del {
+  color: gray;
+}
+
+.badd {
+  border: 3px solid black;
+}
+
+.bdel {
+  background-color: gray;
+}
