@@ -1,5 +1,5 @@
 
-REGEX_FILENAME = /([\-a-zA-Z]*)(\@\d+)?\.txt/
+REGEX_FILENAME = /([\-a-zA-Z]*)(\.[0-9]*)?(\@\d+)?\.txt/
 
 class TextStorage < Storage
   def get_page(name)
@@ -47,12 +47,13 @@ class TextPage < Page
 
   def update_data(data)
     if(File.exist?(DATAPATH+@escape_name+".txt"))
+      time = File.stat(DATAPATH+@escape_name+".txt").mtime.to_i.to_s
       # TODO: 最終更新が5n分前より最近だったら、バックアップしない的な機能をつける
       i = 0
       i = i + 1 while(File.exist?(DATAPATH+@escape_name+"@"+i.to_s+".txt"))
       File.rename(
                   DATAPATH+@escape_name+".txt",
-                  DATAPATH+@escape_name+"@"+i.to_s+".txt")
+                  DATAPATH+@escape_name+"."+time+"@"+i.to_s+".txt")
     end
     File.open(DATAPATH+@escape_name+".txt","w") do |w|
       w.binmode
@@ -80,7 +81,11 @@ class TextSnapshot < Snapshot
   end
 
   def time
-    return File.stat(@fname).mtime
+    if(@fname=~/\.(\d+)@\d+\.txt/)
+      return Time.at($1.to_i)
+    else
+      return File.stat(@fname).mtime
+    end
   end
 end
 
