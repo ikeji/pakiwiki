@@ -111,7 +111,7 @@ class YATMLPerser
   def convWiki()
     @str = @str.sub(/\A([^<]*)/m,"")
     text = $1
-    # FIXME:WikiãLñ@ÇégÇ§Ç»ÇÁÇ±Ç±Ç…èëÇ≠
+    # FIXME:WikiË®òÊ≥ï„Çí‰Ωø„ÅÜ„Å™„Çâ„Åì„Åì„Å´Êõ∏„Åè
     text.gsub!(/(\r?\n|^)#(.*)(\r?\n|$)/){ "<sumi>#{$2}</sumi>" }
     text.gsub!(/(?:\r?\n|^)(\*+)(.*)(?:\r?\n|$)/)do
       "<@#{"sub" * ($1.size-1)}section>#{$2}</#{"sub" * ($1.size-1)}section>"
@@ -121,7 +121,7 @@ class YATMLPerser
   end
 
   def convWikiElement(str)
-    # FIXME: ãLñ@ÇÕÇ±Ç±Ç≈Ç‡ëùÇ‚Ç∑
+    # FIXME: Ë®òÊ≥ï„ÅØ„Åì„Åì„Åß„ÇÇÂ¢ó„ÇÑ„Åô
     if(str =~ /\A(.*?)([A-Z][a-z]+([A-Z][a-z]+)+)(.*?)\Z/m)
       match = [$1,$2,$4]
       el = Element.new(false,"link")

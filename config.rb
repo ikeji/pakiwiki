@@ -4,12 +4,12 @@
 
 WIKITITLE = "PakiWiki Web"
 
-# cgi���u���Ă���ꏊ�܂ł�URL�t���p�X
-# FIXME: �L���ɂ���B
+# cgiが置いてある場所までのURLフルパス
+# FIXME: 有効にする。
 #BASEPATH = "/wiki.cgi"
 
 # Using TextStorage
-# �f�[�^�f�B���N�g���܂ł̃p�X
+# データディレクトリまでのパス
 DATAPATH = "wiki/"
 
 # vim: sw=2 : ts=1000 :

@@ -48,7 +48,7 @@ class TextPage < Page
   def update_data(data)
     if(File.exist?(DATAPATH+@escape_name+".txt"))
       time = File.stat(DATAPATH+@escape_name+".txt").mtime.to_i.to_s
-      # TODO: ÅIXV‚ª5n•ª‘O‚æ‚èÅ‹ß‚¾‚Á‚½‚çAƒoƒbƒNƒAƒbƒv‚µ‚È‚¢“I‚È‹@”\‚ð‚Â‚¯‚é
+      # TODO: æœ€çµ‚æ›´æ–°ãŒ5nåˆ†å‰ã‚ˆã‚Šæœ€è¿‘ã ã£ãŸã‚‰ã€ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ã—ãªã„çš„ãªæ©Ÿèƒ½ã‚’ã¤ã‘ã‚‹
       i = 0
       i = i + 1 while(File.exist?(DATAPATH+@escape_name+"@"+i.to_s+".txt"))
       File.rename(
@@ -89,7 +89,7 @@ class TextSnapshot < Snapshot
   end
 end
 
-# FIXME: Ý’èƒtƒ@ƒCƒ‹‚Å‘I‚×‚é‚æ‚¤‚É‚·‚éB
+# FIXME: è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã§é¸ã¹ã‚‹ã‚ˆã†ã«ã™ã‚‹ã€‚
 
 $storage = TextStorage.new()
 

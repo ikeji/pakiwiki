@@ -27,7 +27,7 @@ class Converter
     end
   end
 
-  # FIXME: ƒvƒ‰ƒOƒCƒ“‚ğ“WŠJ‚Å‚«‚é‚æ‚¤‚É‚·‚éB
+  # FIXME: ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã‚’å±•é–‹ã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹ã€‚
   def block_title(element)
     return ["h1",{}] + convert_element(element.contents)
   end

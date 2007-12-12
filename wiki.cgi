@@ -3,7 +3,7 @@
 require "cgi"
 require "time"
 
-# FIXME: Œã‚ÅA‚±‚ê‚ç‚Ìrequire‚Æ‚©Aplugin‚ğ“Ç‚İ‚ñ‚¾1ƒtƒ@ƒCƒ‹‚ğì‚éƒvƒƒOƒ‰ƒ€‚ğì‚éB
+# FIXME: å¾Œã§ã€ã“ã‚Œã‚‰ã®requireã¨ã‹ã€pluginã‚’èª­ã¿è¾¼ã‚“ã 1ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä½œã‚‹ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’ä½œã‚‹ã€‚
 require "./config.rb"
 require "./plugin.rb"
 require "./storage.rb"
@@ -16,15 +16,15 @@ require "./template.rb"
 
 class Wiki
   attr_reader :cmd
-  attr_reader :page  # FIXME: –¼‘O‚ğpagename‚Æ‚©‚É‚µ‚Â‚ÂApageƒIƒuƒWƒFƒNƒg‚ğQÆ‚Å‚«‚é‚æ‚¤‚ÈApage‚ğİ’è‚·‚éB
+  attr_reader :page  # FIXME: åå‰ã‚’pagenameã¨ã‹ã«ã—ã¤ã¤ã€pageã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å‚ç…§ã§ãã‚‹ã‚ˆã†ãªã€pageã‚’è¨­å®šã™ã‚‹ã€‚
   attr_reader :time
   attr_reader :cgi
   attr_reader :cgibase
 
   def initialize
     $wiki = self;
-    # FIXME: İ’èƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚ŞB
-    # FIXME: İ’èƒtƒ@ƒCƒ‹‚©‚çpluginƒtƒHƒ‹ƒ_‚ğ“Ç‚İ‚Ş‚æ‚¤‚É‚·‚éB
+    # FIXME: è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚€ã€‚
+    # FIXME: è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰pluginãƒ•ã‚©ãƒ«ãƒ€ã‚’èª­ã¿è¾¼ã‚€ã‚ˆã†ã«ã™ã‚‹ã€‚
     Plugin.load_plugins()
 
     @cgi = CGI.new()
@@ -37,8 +37,8 @@ class Wiki
     # FIXME:
     @cgibase = @cgi.script_name.gsub(/\/wiki.cgi/,"")
 
-    # path‚Ì‰ğÍ
-    #   wiki.cgi/pagename ‚Æ‚© wiki.cgi/pagename/edit ‚Æ‚©B
+    # pathã®è§£æ
+    #   wiki.cgi/pagename ã¨ã‹ wiki.cgi/pagename/edit ã¨ã‹ã€‚
     if(path =~ /^\/([A-Za-z0-9.]+)(@([\dT:+-]+))?\/?$/)
       @page = $1
       @time = Time.iso8601($3) if($3 != nil)
@@ -54,9 +54,9 @@ class Wiki
   end
 
   def exec_plugin(type,cmd)
-    # FIXME: "::"‚ªŠÜ‚Ü‚ê‚éê‡‚É‚Â‚¢‚Äl‚¦‚éB
+    # FIXME: "::"ãŒå«ã¾ã‚Œã‚‹å ´åˆã«ã¤ã„ã¦è€ƒãˆã‚‹ã€‚
     name = [type,cmd].join("_")
-    # FIXME: plugin‚ª‚È‚¢‚ÉƒGƒ‰[‚ğo‚µ‚½‚¢
+    # FIXME: pluginãŒãªã„æ™‚ã«ã‚¨ãƒ©ãƒ¼ã‚’å‡ºã—ãŸã„
 
     return $plugins[ name ].send(name)
   end
