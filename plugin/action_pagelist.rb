@@ -1,5 +1,5 @@
 def action_pagelist()
-  
+STDERR.puts $storage.list().inspect  
   list = $storage.list().sort{|a,b| b.last_snapshot.time <=> a.last_snapshot.time }.map do |i|
     <<EOL 
 <li>
