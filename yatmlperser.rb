@@ -46,8 +46,8 @@ class YATMLPerser
 
   def parseYATML()
     return Array.new if(eos?)
-    while(@str =~ /\A<\/([a-zA-Z0-9]*>)/m)
-      @str = @str.sub(/\A<\/([a-zA-Z0-9]*>(\r?\n)?)?/m,"")
+    while(@str =~ /\A<\/@?([a-zA-Z0-9]*>)/m)
+      @str = @str.sub(/\A<\/@?([a-zA-Z0-9]*>(\r?\n)?)?/m,"")
     end
     return Array.new if(eos?)
     return parseBlocks()+parseYATML()
