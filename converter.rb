@@ -26,6 +26,20 @@ class Converter
       end
     end
   end
+  
+  def convert_element_block(elements)
+    return elements.inject([["p",{}]]) do |r,el|
+      if(el.class == String)
+        r[-1] << el
+      elsif el.block 
+        r << self.accept(el)
+        r << ["p",{}]
+      else
+        r[-1] << self.accept(el)
+      end
+      r
+    end.delete_if{|el| (el[0] == "p" && el.size == 2 ) }
+  end
 
   # FIXME: プラグインを展開できるようにする。
   def block_title(element)
@@ -35,7 +49,8 @@ end
 
 def convert(yatml)
   ast = YATMLPerser.parse(yatml)
-  wabisabi = Converter.new.convert_element(ast)
+  wabisabi = Converter.new.convert_element_block(ast)
+STDERR.puts wabisabi.inspect
   html = WabisabiConverter.toHTML(wabisabi)
   return html
 end
