@@ -50,7 +50,6 @@ end
 def convert(yatml)
   ast = YATMLPerser.parse(yatml)
   wabisabi = Converter.new.convert_element_block(ast)
-STDERR.puts wabisabi.inspect
   html = WabisabiConverter.toHTML(wabisabi)
   return html
 end

@@ -103,7 +103,6 @@ class YATMLPerser
   def parseTexts()
     @str = @str.sub(/\A([^<]*)/m){ $1.sub(/(\r?\n)\z/,"") }
     convWiki()
-    
     @str = @str.sub(/\A([^<]*)/m,"")
     return convWikiElement($1)
   end
@@ -116,7 +115,8 @@ class YATMLPerser
     text.gsub!(/(?:\r?\n|^)(\*+)(.*)(?:\r?\n|$)/)do
       "<@#{"sub" * ($1.size-1)}section>#{$2}</#{"sub" * ($1.size-1)}section>"
     end
-    text.gsub!(/(\r?\n)+/,"<br></br>")
+    text.gsub!(/(\r?\n)(\r?\n)+/,"\n\n")
+    text.gsub!(/(\r?\n)/,"<br></br>")
     @str = text + @str
   end
 
