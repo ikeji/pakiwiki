@@ -131,6 +131,15 @@ class YATMLPerser
       ret = convWikiElement(match[0]) + [el] + convWikiElement(match[2])
       return ret.delete_if{|i| i==""}
     end
+    if(str =~ /\A(.*?)\[\[(.*?)\]\](.*?)\Z/m)
+      match = [$1,$2,$3]
+      el = Element.new(false,"link")
+      el.contents = [match[1]]
+      el.innerYATML = match[1]
+      
+      ret = convWikiElement(match[0]) + [el] + convWikiElement(match[2])
+      return ret.delete_if{|i| i==""}
+    end
     if(str =~ /\A(.*?)((http|https|ftp|skype|callto):[A-Za-z0-9:\/?#\[\]@~$&'()*+,;=%._~\-]*)(.*?)\Z/m)
       match = [$1,$2,$4]
       el = Element.new(false,"link")
