@@ -48,9 +48,9 @@ def mkwabidiff(old,new)
 
   return r.map do|i|
     if(i.diffmark == Diff::ADD)
-      addAttr(i,"class","badd")
+      addAttr(i,"class","diff_badd")
     elsif(i.diffmark == Diff::DEL)
-      addAttr(i,"class","bdel")
+      addAttr(i,"class","diff_bdel")
     else
       if(i.class == String) 
         i

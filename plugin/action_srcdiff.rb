@@ -37,9 +37,9 @@ def action_srcdiff()
         if(i.diffmark == Diff::SAME)
           i + "\n"
         elsif(i.diffmark == Diff::ADD)
-          ["span",{"class"=>"add"},i + "\n"]
+          ["span",{"class"=>"diff_add"},i + "\n"]
         else
-          ["span",{"class"=>"del"},i + "\n"]
+          ["span",{"class"=>"diff_del"},i + "\n"]
         end
       end
     ])

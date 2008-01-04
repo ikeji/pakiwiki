@@ -1,15 +1,15 @@
-.add {
+.diff_add {
   font-weight: bold;
 }
 
-.del {
+.diff_del {
   color: gray;
 }
 
-.badd {
+.diff_badd {
   border: 3px solid black;
 }
 
-.bdel {
+.diff_bdel {
   background-color: gray;
 }
