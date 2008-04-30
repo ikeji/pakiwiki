@@ -29,12 +29,12 @@ class Wiki
     # pathの解析
     #   wiki.cgi/pagename とか wiki.cgi/pagename/edit とか。
     if(path =~ /^\/([^@\/]+)(@([\dT:+-]+))?\/?$/)
-      @page = CGI.unescape($1)
       @time = Time.iso8601($3) if($3 != nil)
+      @page = CGI.unescape($1).gsub(".","/")
     elsif(path =~ /^\/([^@\/]+)(@([\dT:+-]+))?\/([a-z]+)\/?/)
-      @page = CGI.unescape($1)
       @time = Time.iso8601($3) if($3 != nil)
       @cmd = $4
+      @page = CGI.unescape($1).gsub(".","/")
     end
 
     ret = exec_plugin("action",@cmd)
@@ -51,8 +51,9 @@ class Wiki
   end
   
   def make_link(page="FrontPage",action="show")
+    page = page.gsub("/",".")
     return "#{cgibase}/" if action == "show" && page == "FrontPage"
-    return "#{cgibase}/#{page}/#{action}/" if action != "show"
+    return "#{cgibase}/#{CGI.escape(page)}/#{action}/" if action != "show"
     return "#{cgibase}/#{CGI.escape(page)}/"
   end
 
