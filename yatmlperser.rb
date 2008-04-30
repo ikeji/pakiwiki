@@ -4,7 +4,7 @@ class YATMLPerser
   end
 
   def initialize(str)
-    @str = str
+    @str = str.gsub(/(\r?\n|\r)/,"\n")
   end
 
   def parse()
@@ -47,7 +47,7 @@ class YATMLPerser
   def parseYATML()
     return Array.new if(eos?)
     while(@str =~ /\A<\/@?([a-zA-Z0-9]*>)/m)
-      @str = @str.sub(/\A<\/@?([a-zA-Z0-9]*>(\r?\n)?)?/m,"")
+      @str = @str.sub(/\A<\/@?([a-zA-Z0-9]*>(\n)?)?/m,"")
     end
     return Array.new if(eos?)
     return parseBlocks()+parseYATML()
@@ -60,7 +60,7 @@ class YATMLPerser
       start = @str
       el.contents = parseInlines()
       el.innerYATML = start[0..(start.size - @str.size-1)]
-      @str = @str.sub(/\A<\/(#{el.name})?>(\r?\n)?/,"")
+      @str = @str.sub(/\A<\/(#{el.name})?>(\n)?/,"")
       return [el]
     else
       return parseInlines()
@@ -82,7 +82,7 @@ class YATMLPerser
       start = @str
       el.contents = parseInlines()
       el.innerYATML = start[0..(start.size - @str.size-1)] if(start.size - @str.size > 0)
-      @str = @str.sub(/\A<\/(#{el.name})?>(\r?\n)?/,"")
+      @str = @str.sub(/\A<\/(#{el.name})?>(\n)?/,"")
       return [el]
     else
       return parseTexts()
@@ -101,7 +101,7 @@ class YATMLPerser
   end
 
   def parseTexts()
-    @str = @str.sub(/\A([^<]*)/m){ $1.sub(/(\r?\n)\z/,"") }
+    @str = @str.sub(/\A([^<]*)/m){ $1.sub(/(\n)\z/,"") }
     convWiki()
     @str = @str.sub(/\A([^<]*)/m,"")
     return convWikiElement($1)
@@ -111,12 +111,12 @@ class YATMLPerser
     @str = @str.sub(/\A([^<]*)/m,"")
     text = $1
     # FIXME:Wiki記法を使うならここに書く
-    text.gsub!(/(\r?\n|^)#(.*)(\r?\n|$)/){ "<sumi>#{$2}</sumi>" }
-    text.gsub!(/(?:\r?\n|^)(\*+)(.*)(?:\r?\n|$)/)do
+    text.gsub!(/(\n|^)#(.*)(\n|$)/){ "<sumi>#{$2}</sumi>" }
+    text.gsub!(/(?:\n|^)(\*+)(.*)(?:\n|$)/)do
       "<@#{"sub" * ($1.size-1)}section>#{$2}</#{"sub" * ($1.size-1)}section>"
     end
-    text.gsub!(/(\r?\n)(\r?\n)+/,"\n\n")
-    text.gsub!(/(\r?\n)/,"<br></br>")
+    text.gsub!(/\n\n+/,"\n\n")
+    text.gsub!(/\n/,"<br></br>")
     @str = text + @str
   end
 
@@ -157,7 +157,7 @@ class YATMLPerser
       @str = @str.sub(/^\</,"")
       return Element.new(false,"")
     end
-    @str = @str.sub(/\A\<(\@?)([a-zA-Z0-9]+) *(( +[a-zA-Z0-9]+\=([a-zA-Z0-9]+|\"[^\"]*\"))*) *\>(\r?\n)?/,"")
+    @str = @str.sub(/\A\<(\@?)([a-zA-Z0-9]+) *(( +[a-zA-Z0-9]+\=([a-zA-Z0-9]+|\"[^\"]*\"))*) *\>(\n)?/,"")
     el = Element.new(($1=="@"),$2)
     $3.gsub(/([a-zA-Z0-9]+)\=(([a-zA-Z0-9]+)|\"([^\"]*)\")/) do 
       el.attr[$1] = $3?$3:$4
