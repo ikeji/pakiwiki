@@ -1,5 +1,5 @@
 
-REGEX_FILENAME = /([\-a-zA-Z]*)(\.[0-9]*)?(\@\d+)?\.txt/
+REGEX_FILENAME = /([\-a-zA-Z0-9]*)(\.[0-9]*)?(\@\d+)?\.txt/
 
 class TextStorage < Storage
   def get_page(name)
