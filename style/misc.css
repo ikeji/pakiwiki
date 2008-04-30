@@ -2,3 +2,7 @@
   background-color: black;
   color: black;
 }
+
+.del {
+  text-decoration: line-through;
+}
