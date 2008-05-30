@@ -68,11 +68,14 @@ class YATMLPerser
   end
 
   def parseBlocks()
-    return Array.new if(eos?)
-    if(getChr() == "<" && getChr2() == "/")
-      return []
-    else
-      return parseBlocksInternal()+parseBlocks()
+    ret = []
+    loop do
+      return ret if eos?
+      if(getChr() == "<" && getChr2() == "/")
+        return ret
+      else
+        ret = ret + parseBlocksInternal()
+      end
     end
   end
 
@@ -90,13 +93,16 @@ class YATMLPerser
   end
 
   def parseInlines()
-    return [] if eos?
-    if(getChr() == "<" && getChr2() == "@")
-      return []
-    elsif(getChr() == "<" && getChr2() == "/")
-      return []
-    else
-      return parseInlinesInternal() +  parseInlines()
+    ret = []
+    loop do
+      return ret if eos?
+      if(getChr() == "<" && getChr2() == "@")
+        return ret
+      elsif(getChr() == "<" && getChr2() == "/")
+        return ret
+      else
+        ret = ret + parseInlinesInternal()
+      end
     end
   end
 
@@ -127,7 +133,7 @@ class YATMLPerser
       el = Element.new(false,"link")
       el.contents = [match[1]]
       el.innerYATML = match[1]
-      
+
       ret = convWikiElement(match[0]) + [el] + convWikiElement(match[2])
       return ret.delete_if{|i| i==""}
     end
@@ -136,7 +142,7 @@ class YATMLPerser
       el = Element.new(false,"link")
       el.contents = [match[1]]
       el.innerYATML = match[1]
-      
+
       ret = convWikiElement(match[0]) + [el] + convWikiElement(match[2])
       return ret.delete_if{|i| i==""}
     end
@@ -145,7 +151,7 @@ class YATMLPerser
       el = Element.new(false,"link")
       el.contents = [match[1]]
       el.innerYATML = match[1]
-      
+
       ret = convWikiElement(match[0]) + [el] + convWikiElement(match[2])
       return ret.delete_if{|i| i==""}
     end
