@@ -1,8 +1,9 @@
-def action_pagelist()
-  list = $storage.list().sort{|a,b| a.page_title <=> b.page_title }.map do |i|
+def action_recentedit()
+  list = $storage.list().sort{|a,b| b.last_snapshot.time <=> a.last_snapshot.time }.map do |i|
     <<EOL 
 <li>
   <a href="#{$wiki.make_link(i.page_title)}">#{i.page_title}</a>
+  - #{i.last_snapshot.time.rfc822}
 </li>
 EOL
   end.join()
