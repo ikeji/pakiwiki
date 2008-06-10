@@ -128,6 +128,16 @@ class YATMLPerser
 
   def convWikiElement(str)
     # FIXME: 記法はここでも増やす
+    if(str =~ /\A(.*?)\[\[(.*?)>(.*)\]\](.*?)\Z/m)
+      match = [$1,$2,$3,$4]
+      el = Element.new(false,"link")
+      el.contents = [match[1]]
+      el.innerYATML = match[1]
+      el.attr['page'] = match[2]
+
+      ret = convWikiElement(match[0]) + [el] + convWikiElement(match[3])
+      return ret.delete_if{|i| i==""}
+    end
     if(str =~ /\A(.*?)((http|https|ftp|skype|callto):[A-Za-z0-9:\/?#\[\]@~$&'()*+,;=%._~\-]*)(.*?)\Z/m)
       match = [$1,$2,$4]
       el = Element.new(false,"link")
