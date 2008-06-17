@@ -1,3 +1,6 @@
+DOT_OPT = "-Nfontname='/usr/local/share/fonts/TrueType/ipag.ttf"
+
+
 require "rubygems"
 require "rparsec"
 
@@ -102,19 +105,17 @@ require 'digest/sha1'
 
 def block_graph(element)
   dot = element.innerYATML
-STDERR.puts dot
-#  begin 
+  begin 
     links = DotParser.parser.parse(dot).flatten.uniq.sort.map{|i| "\"#{i.gsub("\"","\\\"")}\" [ URL = \"#{ $wiki.make_link(i) }\"]; " }.join()
     dot = dot.gsub("{","{#{links}") 
-#  rescue 
-#  end
-STDERR.puts dot
+  rescue 
+  end
   name = Digest::SHA1.hexdigest(dot)
   fname = "./plugin/graph/"+name + ".png"
   fhname = fname + ".html"
   uname = $wiki.cgibase + "/plugin/graph/"+name + ".png"
   if(!File.exist?(fname) || !File.exist?(fhname))
-    IO.popen("dot -Nfontname='/usr/local/share/fonts/TrueType/ipag.ttf' -Tpng -o #{fname}","w") do |w|
+    IO.popen("dot #{DOT_OPT} -Tpng -o #{fname}","w") do |w|
       w.puts dot
     end
     IO.popen("dot -Tcmapx -o #{fhname}","w") do |w|
@@ -122,10 +123,14 @@ STDERR.puts dot
     end
   end
   areas = []
-  File.read(fhname).gsub(/<area shape="poly" href="([^"]+)" title="([^"]+)" alt="" coords="([^"]+)"\/>/){areas << [$1,$2,$3]}
-  area = areas.map{|i| ["area",{"shape"=>"poly", "href"=>i[0], "title"=>i[1], "coords"=>i[2]}] }
+  File.read(fhname).gsub(/<area([^>]+)\/>/)do 
+    tmp = []
+    $1.gsub(/([a-z]+)\=\"([^"]+\")/){ areas[$1] = $2  }
+    areas << tmp
+  end
+  area = areas.each{|i| ["area",i] }
 
   return ["div",{},["img",{"src"=>uname,"usemap"=>"##{name}"}],
            ["map",{"id"=>name,"name"=>name}] + area]
 end
-# vim: sw=2 : ts=8 :
+# vim: sw=2 : t:=8 :
