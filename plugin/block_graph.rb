@@ -124,13 +124,13 @@ def block_graph(element)
   end
   areas = []
   File.read(fhname).gsub(/<area([^>]+)\/>/)do 
-    tmp = []
-    $1.gsub(/([a-z]+)\=\"([^"]+\")/){ areas[$1] = $2  }
+    tmp = {}
+    $1.gsub(/([a-z]+)\=\"([^"]+)\"/){ tmp[$1] = $2  }
     areas << tmp
   end
-  area = areas.each{|i| ["area",i] }
-
+  area = areas.map{|i| ["area",i] }
+  
   return ["div",{},["img",{"src"=>uname,"usemap"=>"##{name}"}],
            ["map",{"id"=>name,"name"=>name}] + area]
 end
-# vim: sw=2 : t:=8 :
+# vim: sw=2 : ts=8 :
