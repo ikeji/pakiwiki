@@ -58,9 +58,9 @@ class YATMLPerser
     if(getChr() == "<" && getChr2() == "@")
       el = parseTag()
       start = @str
-      el.contents = parseInlines()
+      el.contents = parseBlocks()
       el.innerYATML = start[0..(start.size - @str.size-1)]
-      @str = @str.sub(/\A<\/(#{el.name})?>(\n)?/,"")
+      @str = @str.sub(/\A<\/@?(#{el.name})?>(\n)?/,"")
       return [el]
     else
       return parseInlines()
@@ -162,9 +162,24 @@ class YATMLPerser
     end
     if(str =~ /\A(.*?)\[\[(.*?)\]\](.*?)\Z/m)
       match = [$1,$2,$3]
-      el = Element.new(false,"link")
-      el.contents = [match[1]]
-      el.innerYATML = match[1]
+      el = Element.new(false,"link") do |el|
+        el.contents = [match[1]]
+        el.innerYATML = match[1]
+      end
+
+      ret = convWikiElement(match[0]) + [el] + convWikiElement(match[2])
+      return ret.delete_if{|i| i==""}
+    end
+    pagelist = $storage.list.map{|p|Regexp.escape(p.page_title)}.join("|")
+    if(str =~ Regexp.new("\\A(.*?)(#{pagelist})(.*?)\\Z",Regexp::MULTILINE))
+      match = [$1,$2,$3]
+      el = Element.new(false,"autolink") do|el|
+        el.contents = [Element.new(false,"link") do|el|
+          el.contents = [match[1]]
+          el.innerYATML = match[1]
+        end]
+        el.innerYATML = match[1]
+      end
 
       ret = convWikiElement(match[0]) + [el] + convWikiElement(match[2])
       return ret.delete_if{|i| i==""}

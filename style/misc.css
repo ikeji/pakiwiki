@@ -6,3 +6,10 @@
 .del {
   text-decoration: line-through;
 }
+
+.autolink A {
+  text-decoration: none;
+  border-width: 0px;
+  border-bottom-width: 1px;
+  border-style: dotted;
+}

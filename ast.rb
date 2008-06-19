@@ -5,12 +5,13 @@ class Element
   attr_accessor("innerYATML")
   attr_accessor("contents")
 
-  def initialize(block=true,name="")
+  def initialize(block=true,name="",&proc)
     @block = block
     @name = name
     @attr = Hash.new
     @contents = Array.new
     @innerYATML = ""
+    proc.call self if proc!=nil
   end
 
   def to_s()
