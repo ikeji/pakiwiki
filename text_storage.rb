@@ -41,7 +41,6 @@ class TextPage < Page
     if(File.exist?(DATAPATH+@escape_name+".txt"))
       return TextSnapshot.new(DATAPATH+@escape_name+".txt")
     else
-STDERR.puts DATAPATH+@escape_name+".txt"
       return nil
     end
   end
