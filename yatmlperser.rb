@@ -80,7 +80,11 @@ class YATMLPerser
   end
 
   def parseInlinesInternal()
-    if(getChr() == "<" && getChr2() != "@")
+    if(@str =~ /^<([a-zA-Z0-9]+) *\/>/)
+      el = Element.new(false,$1)
+      @str = @str.sub( /^<([a-zA-Z0-9]+) *\/>/, "")
+      return [el]
+    elsif(getChr() == "<" && getChr2() != "@")
       el = parseTag()
       start = @str
       el.contents = parseInlines()
@@ -128,7 +132,7 @@ class YATMLPerser
 
   def convWikiElement(str)
     # FIXME: 記法はここでも増やす
-    if(str =~ /\A(.*?)\[\[(.*?)>(.*)\]\](.*?)\Z/m)
+    if(str =~ /\A(.*?)\[\[(.*?)>(.*?)\]\](.*?)\Z/m)
       match = [$1,$2,$3,$4]
       el = Element.new(false,"link")
       el.contents = [match[1]]
