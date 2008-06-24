@@ -1,5 +1,5 @@
 
-REGEX_FILENAME = /([\-a-zA-Z0-9]*)(\.[0-9]*)?(\@\d+)?\.txt/
+REGEX_FILENAME = /([\-a-zA-Z0-9]*)(\.[0-9]*)?\.txt/
 
 class TextStorage < Storage
   def get_page(name)
@@ -19,7 +19,7 @@ class TextStorage < Storage
   end
 
   def escape(string)
-    return string.gsub(/([^A-Za-z])/n){ "-%02X" % $1[0] }
+    return string.gsub(/([^A-Za-z0-9])/n){ "-%02X" % $1[0] }
   end
 
   def unescape(string)
@@ -49,11 +49,9 @@ class TextPage < Page
     if(File.exist?(DATAPATH+@escape_name+".txt"))
       time = File.stat(DATAPATH+@escape_name+".txt").mtime.to_i.to_s
       # TODO: 最終更新が5n分前より最近だったら、バックアップしない的な機能をつける
-      i = 0
-      i = i + 1 while(File.exist?(DATAPATH+@escape_name+"@"+i.to_s+".txt"))
       File.rename(
                   DATAPATH+@escape_name+".txt",
-                  DATAPATH+@escape_name+"."+time+"@"+i.to_s+".txt")
+                  DATAPATH+@escape_name+"."+time+".txt")
     end
     File.open(DATAPATH+@escape_name+".txt","w") do |w|
       w.binmode
