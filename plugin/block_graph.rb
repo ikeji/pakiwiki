@@ -1,4 +1,4 @@
-DOT_OPT = "-Nfontname='/usr/local/share/fonts/TrueType/ipag.ttf"
+DOT_OPT = "-Nfontname='/usr/local/share/fonts/TrueType/ipag.ttf'"
 
 
 require "rubygems"
