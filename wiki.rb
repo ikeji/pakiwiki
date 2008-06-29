@@ -39,6 +39,7 @@ class Wiki
 
     ret = exec_plugin("action",@cmd)
     return if ret == nil
+    return @cgi.out(ret[:head]) { ret[:raw] } if ret[:raw]
     render_page(ret[:title],ret[:body])
   end
 
