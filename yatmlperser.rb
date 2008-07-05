@@ -142,15 +142,6 @@ class YATMLPerser
       ret = convWikiElement(match[0]) + [el] + convWikiElement(match[3])
       return ret.delete_if{|i| i==""}
     end
-    if(str =~ /\A(.*?)((http|https|ftp|skype|callto):[A-Za-z0-9:\/?#\[\]@~$&'()*+,;=%._~\-]*)(.*?)\Z/m)
-      match = [$1,$2,$4]
-      el = Element.new(false,"link")
-      el.contents = [match[1]]
-      el.innerYATML = match[1]
-
-      ret = convWikiElement(match[0]) + [el] + convWikiElement(match[2])
-      return ret.delete_if{|i| i==""}
-    end
     if(str =~ /\A(.*?)\[\[(.*?)\]\](.*?)\Z/m)
       match = [$1,$2,$3]
       el = Element.new(false,"link") do |el|
@@ -161,8 +152,17 @@ class YATMLPerser
       ret = convWikiElement(match[0]) + [el] + convWikiElement(match[2])
       return ret.delete_if{|i| i==""}
     end
+    if(str =~ /\A(.*?)((http|https|ftp|skype|callto):[A-Za-z0-9:\/?#\[\]@~$&'()*+,;=%._~\-]*)(.*?)\Z/m)
+      match = [$1,$2,$4]
+      el = Element.new(false,"link")
+      el.contents = [match[1]]
+      el.innerYATML = match[1]
+
+      ret = convWikiElement(match[0]) + [el] + convWikiElement(match[2])
+      return ret.delete_if{|i| i==""}
+    end
     pagelist = $storage.list.map{|p|p.page_title}.
-      delete_if{|p| p =~ /^[A-Z][a-z]+([A-Z][a-z]+)+$/}.
+      #delete_if{|p| p =~ /^[A-Z][a-z]+([A-Z][a-z]+)+$/}.
       map{|p|Regexp.escape(p)}.sort.reverse.join("|")
     if(str =~ Regexp.new("\\A(.*?)(#{pagelist})(.*?)\\Z",Regexp::MULTILINE))
       match = [$1,$2,$3]
@@ -172,6 +172,9 @@ class YATMLPerser
           el.innerYATML = match[1]
         end]
         el.innerYATML = match[1]
+      end
+      if(match[1] =~ /^[A-Z][a-z]+([A-Z][a-z]+)+$/)
+        el = el.contents[0]
       end
 
       ret = convWikiElement(match[0]) + [el] + convWikiElement(match[2])
