@@ -3,8 +3,7 @@ def inline_link(element)
   page= element.innerYATML if !page
   if(page =~ /\A(http|https|ftp|skype|callto):[A-Za-z0-9:\/?#\[\]@~$&'()*+,;=%._^\-]*\Z/m)
     # FIXME: リンク内でタグ使うには?
-    #return ["a",{"href"=>page}] + convert_element(element.contents) + [["sub",{},["small",{},"[out link]"]]]
-    return ["a",{"href"=>page,"rel"=>"nofollow"},element.innerYATML,["sub",{},["small",{},"[out link]"]]]
+    return ["a",{"href"=>page,"rel"=>"nofollow","class"=>"outlink"},element.innerYATML]
   end
   action = "show"
   action = element.attr["action"].to_s.gsub(/[^A-Za-z0-9.]/,"") if element.attr.has_key?("action")
