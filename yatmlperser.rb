@@ -58,7 +58,7 @@ class YATMLPerser
     if(getChr() == "<" && getChr2() == "@")
       el = parseTag()
       start = @str
-      el.contents = parseBlocks()
+      el.contents = parseBlocks(el.name)
       el.innerYATML = start[0..(start.size - @str.size-1)]
       @str = @str.sub(/\A<\/@?(#{el.name})?>(\n)?/,"")
       return [el]
@@ -67,13 +67,14 @@ class YATMLPerser
     end
   end
 
-  def parseBlocks()
+  def parseBlocks(blockname = "")
     ret = []
     loop do
       return ret if eos?
-      if(getChr() == "<" && getChr2() == "/")
+      if(@str =~ /\A<\/(@|>|#{blockname}>)/)
         return ret
       else
+        @str.sub!(/\A<\//,"")
         ret = ret + parseBlocksInternal()
       end
     end
