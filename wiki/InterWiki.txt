@@ -1,0 +1,9 @@
+* 有名なところ
+wikipedia http://ja.wikipedia.org/wiki/
+google http://www.google.co.jp/search?q=
+hatena http://d.hatena.ne.jp/keyword/
+
+* その他Wiki
+wiki http://www.c2.com/cgi/wiki?
+yukiwiki http://www.hyuki.com/yukiwiki/wiki.cgi?mycmd=read&mypage= EUC-JP
+pakiwiki http://ikejima.org/
