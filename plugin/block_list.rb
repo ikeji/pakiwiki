@@ -23,7 +23,7 @@ def block_list(element)
       line.sub!(/^( +)/,"")
       indent.push $1
     end
-    current.push( ["li",{}] + convertYatml2Wabisabi(line) )
+    current.push( ["li",{}] + convertYatml2Wabisabi(line.gsub("~~","\n").gsub("\n\n","~~")))
   end
   while items.size != 0
     c = items.pop
