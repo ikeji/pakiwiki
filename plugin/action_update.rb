@@ -1,6 +1,9 @@
 def action_update()
   page = $storage.get_page($wiki.page)
   data = $wiki.cgi['msg'].first;
+  pass = $wiki.cgi['pass'].first;
+  key = $wiki.cgi['key'].first;
+  raise Exception.new("PASSWORD ERROR") if( EASYPASSWORD && pass.crypt("AA") != key)
   page.update_data("#{data}")
   
   print $wiki.cgi.header(

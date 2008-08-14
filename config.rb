@@ -12,4 +12,8 @@ WIKITITLE = "PakiWiki Web"
 # データディレクトリまでのパス
 DATAPATH = (Pathname.new(__FILE__).parent+"wiki/").to_s
 
+# Using edit
+# Use easy password
+EASYPASSWORD = false
+
 # vim: sw=2 : ts=1000 :

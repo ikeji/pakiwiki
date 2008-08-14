@@ -4,6 +4,7 @@ def action_show()
   alert = ""
   aptitle = ""
   if($wiki.time != nil)
+    key = rand(100).to_s
     for s in page.snapshot_list.sort{|a,b| b.time <=> a.time }
       break if s.time < $wiki.time
       snapshot = s
@@ -21,7 +22,13 @@ def action_show()
            "You can ",
            ["input",{"type"=>"submit","value"=>"revert"}],
            " To this version.",
-         ]
+         ] + ( EASYPASSWORD ? [
+           ["br",{}],
+           "(Need insert '#{key}' to this box. ",
+           ["input",{"type"=>"text","name"=>"pass"}],
+           ["input",{"type"=>"hidden","name"=>"key","value"=>"#{key.crypt("AA")}"}],
+           ")",
+         ] : [] )
        ]])
       aptitle = " (#{s.time.to_s})"
     end
