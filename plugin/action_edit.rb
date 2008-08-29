@@ -16,7 +16,7 @@ def action_edit()
          ],
        ] + (EASYPASSWORD ? [
          ["br",{}],
-         "Please insert '#{key}' to this box.",
+         "Please input '#{key}' to this field.",
          ["input",{"type"=>"text","name"=>"pass"}],
          ["input",{"type"=>"hidden","name"=>"key","value"=>"#{key.crypt("AA")}"}],
        ] : [] ) + [
