@@ -38,13 +38,7 @@ def action_visualdiff()
 end
 
 def mkwabidiff(old,new)
-  r = Diff::makeDiff(old,new) do |a,b|
-    if(a.class == String || b.class == String || a==nil || b==nil )
-      (a==b)
-    else
-      (a[0] == b[0] && a[1] == b[1])
-    end
-  end
+  r = Diff::makeDiff(old,new)
 
   return r.map do|i|
     if(i.diffmark == Diff::ADD)
