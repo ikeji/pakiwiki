@@ -2,7 +2,15 @@ require 'erb'
 def render_page(title,body)
   #FIXME: thease valiable to config file
   menu_text = $storage.get_page("MenuBar").last_snapshot
-  menu = convert(menu_text.data) if(menu_text != nil)
+  menu = nil
+  if(menu_text != nil)
+    if menu_text.cache != nil
+      menu = menu_text.cache
+    else
+      menu = convert(menu_text.data) 
+      menu_text.update_cache menu
+    end
+  end
   css = Dir["style/*.css"].map do |i|
     "<link rel=\"stylesheet\" type=\"text/css\" href=\"#{$wiki.cgibase}/#{i}\" />"
   end.join("\n")
