@@ -8,7 +8,7 @@ class Wiki
   attr_reader :cgi
   attr_reader :cgibase
 
-  def initialize(invoke)
+  def initialize(invoke, cgi = nil)
     $wiki = self;
     # FIXME: 設定ファイルを読み込む。
     # FIXME: 設定ファイルからpluginフォルダを読み込むようにする。
@@ -16,7 +16,7 @@ class Wiki
 
     return unless invoke 
 
-    @cgi = CGI.new()
+    @cgi = cgi || CGI.new()
     path = @cgi.path_info
 
     @page = "FrontPage"
@@ -24,7 +24,7 @@ class Wiki
     @cgibase = @cgi.script_name
     
     # FIXME:
-    @cgibase = @cgi.script_name.gsub(/\/wiki.cgi/,"")
+    @cgibase = @cgi.script_name.gsub(/\/wiki.f?cgi/,"")
 
     # pathの解析
     #   wiki.cgi/pagename とか wiki.cgi/pagename/edit とか。

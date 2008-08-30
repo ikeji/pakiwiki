@@ -1,11 +1,10 @@
 require 'erb'
 def render_page(title,body)
   #FIXME: thease valiable to config file
-  base = $wiki.cgi.script_name.gsub("wiki\.cgi","")
   menu_text = $storage.get_page("MenuBar").last_snapshot
   menu = convert(menu_text.data) if(menu_text != nil)
   css = Dir["style/*.css"].map do |i|
-    "<link rel=\"stylesheet\" type=\"text/css\" href=\"#{base}#{i}\" />"
+    "<link rel=\"stylesheet\" type=\"text/css\" href=\"#{$wiki.cgibase}/#{i}\" />"
   end.join("\n")
   cgi.out({"type"=>"text/html","charset"=>"utf-8"}) {
     ERB.new(<<END).result(binding)
