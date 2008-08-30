@@ -57,6 +57,9 @@ class TextPage < Page
       w.binmode
       w.write data
     end
+    Dir["#{DATAPATH}*.cache"].each do |fname|
+      File.delete(fname)
+    end
   end
 
   def snapshot_list()
@@ -83,6 +86,24 @@ class TextSnapshot < Snapshot
       return Time.at($1.to_i)
     else
       return File.stat(@fname).mtime
+    end
+  end
+
+  def cache
+    if(File.exist?("#{@fname}.cache"))
+      File.open("#{@fname}.cache","r") do |r|
+        r.binmode
+        return r.read
+      end
+    else
+      return nil
+    end
+  end
+
+  def update_cache(cache)
+    File.open("#{@fname}.cache","w") do |w|
+      w.binmode
+      w.write cache
     end
   end
 end

@@ -41,7 +41,15 @@ def action_show()
     return nil
   end
 
-  return :body => (alert + convert(snapshot.data)), :title => ($wiki.page + aptitle)
+  body = ""
+  if(snapshot.cache == nil)
+    body = convert(snapshot.data)
+    snapshot.update_cache(body)
+  else
+    body = snapshot.cache
+  end
+
+  return :body => (alert + body), :title => ($wiki.page + aptitle)
 end
 
 # vim: sw=2 : ts=1000 :

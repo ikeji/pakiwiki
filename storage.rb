@@ -37,6 +37,14 @@ class Snapshot
   def time
     raise NotImplementedError, 'A subclass must override this method.'
   end
+  
+  def cache
+    raise NotImplementedError, 'A subclass must override this method.'
+  end
+  
+  def update_cache(cache)
+    raise NotImplementedError, 'A subclass must override this method.'
+  end
 end
 
 # vim: sw=2 : ts=1000 :
