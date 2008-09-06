@@ -4,34 +4,31 @@ def action_show()
   alert = ""
   aptitle = ""
   if($wiki.time != nil)
+    snapshot = page.find_snapshot($wiki.time)
     key = rand(100).to_s
-    for s in page.snapshot_list.sort{|a,b| b.time <=> a.time }
-      break if s.time < $wiki.time
-      snapshot = s
-      alert = WabisabiConverter.toHTML([
-       ["div",{"class"=>"alert"},
-         "This page is old version(#{s.time.to_s})",
-         ["form",{ "action"=>$wiki.make_link($wiki.page,"update"),
-                   "method"=>"post",
-                   "name"=>"edit",
-                 },
-           ["input",{"type"=>"hidden",
-                     "name"=>"msg",
-                     "value"=>s.data,
-                    }],
-           "You can ",
-           ["input",{"type"=>"submit","value"=>"revert"}],
-           " To this version.",
-         ] + ( EASYPASSWORD ? [
-           ["br",{}],
-           "(Need insert '#{key}' to this box. ",
-           ["input",{"type"=>"text","name"=>"pass"}],
-           ["input",{"type"=>"hidden","name"=>"key","value"=>"#{key.crypt("AA")}"}],
-           ")",
-         ] : [] )
-       ]])
-      aptitle = " (#{s.time.to_s})"
-    end
+    alert = WabisabiConverter.toHTML([
+      ["div",{"class"=>"alert"},
+        "This page is old version(#{snapshot.time.to_s})",
+        ["form",{ "action"=>$wiki.make_link($wiki.page,"update"),
+                  "method"=>"post",
+                  "name"=>"edit",
+                },
+          ["input",{"type"=>"hidden",
+                    "name"=>"msg",
+                    "value"=>snapshot.data,
+                   }],
+          "You can ",
+          ["input",{"type"=>"submit","value"=>"revert"}],
+          " To this version.",
+        ] + ( EASYPASSWORD ? [
+          ["br",{}],
+          "(Need insert '#{key}' to this box. ",
+          ["input",{"type"=>"text","name"=>"pass"}],
+          ["input",{"type"=>"hidden","name"=>"key","value"=>"#{key.crypt("AA")}"}],
+          ")",
+        ] : [] )
+      ]])
+    aptitle = " (#{snapshot.time.to_s})"
   end
 
   if(snapshot == nil)

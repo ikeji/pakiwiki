@@ -20,8 +20,24 @@ class Page
     raise NotImplementedError, 'A subclass must override this method.'
   end
 
+  def find_snapshot(time)
+    return last_snapshot if(time == nil)
+    snapshot = last_snapshot
+    for s in sorted_snapshot_list
+      return s if s.time == time
+      return s if s.time < time
+      snapshot = s
+    end
+    return snapshot
+  end
+
   def update_data(data)
     raise NotImplementedError, 'A subclass must override this method.'
+  end
+
+  # result is must sort by time
+  def sorted_snapshot_list()
+    snapshot_list().sort{|a,b| b.time <=> a.time }
   end
 
   def snapshot_list()

@@ -5,15 +5,15 @@ def action_visualdiff()
   snapshot = page.last_snapshot()
   lastsnapshot = nil
   if($wiki.time != nil)
-    for s in page.snapshot_list.sort{|a,b| b.time <=> a.time }
+    for s in page.sorted_snapshot_list
       lastsnapshot = s
       break if s.time < $wiki.time
       snapshot = s
     end
   else
-    list = page.snapshot_list
+    list = page.sorted_snapshot_list
     if(list.size > 1)
-      lastsnapshot = list.sort{|a,b| b.time <=> a.time}[1]
+      lastsnapshot = list[1]
     end
   end
 

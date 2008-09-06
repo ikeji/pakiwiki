@@ -2,13 +2,7 @@ require "pp"
 
 def action_dump()
   page = $storage.get_page($wiki.page)
-  snapshot = page.last_snapshot()
-  if($wiki.time != nil)
-    for s in page.snapshot_list.sort{|a,b| b.time <=> a.time }
-      break if s.time < $wiki.time
-      snapshot = s
-    end
-  end
+  snapshot = page.find_snapshot($wiki.time)
 
   if(snapshot == nil)
     print $wiki.cgi.header(

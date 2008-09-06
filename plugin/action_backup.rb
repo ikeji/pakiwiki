@@ -2,7 +2,7 @@ require "time"
 
 def action_backup()
   page = $storage.get_page($wiki.page)
-  list = page.snapshot_list.sort{|a,b| b.time <=> a.time }.map do |i|
+  list = page.sorted_snapshot_list.map do |i|
     <<EOL 
 <li>
   <a href="#{$wiki.make_link($wiki.page + "@" + i.time.iso8601)}">
