@@ -17,4 +17,8 @@ CACHE_PATH = DATAPATH
 # Use easy password
 EASYPASSWORD = false
 
+# for en/ja plugin
+#LANG = "en"
+#LANG = "ja"
+
 # vim: sw=2 : ts=1000 :
