@@ -1,3 +1,4 @@
+require "pathname"
 
 REGEX_FILENAME = /([\-a-zA-Z0-9]*)(\.[0-9]*)?\.txt/
 
@@ -7,7 +8,7 @@ class TextStorage < Storage
   end
 
   def list()
-    Dir[DATAPATH + "*.txt"].map do |fname|
+    Dir[DATA_PATH + "*.txt"].map do |fname|
       fname =~ REGEX_FILENAME
       $1
     end.uniq.map do |i|
@@ -38,33 +39,34 @@ class TextPage < Page
   end
 
   def last_snapshot()
-    if(File.exist?(DATAPATH+@escape_name+".txt"))
-      return TextSnapshot.new(DATAPATH+@escape_name+".txt")
+    if(File.exist?(DATA_PATH+@escape_name+".txt"))
+      return TextSnapshot.new(@escape_name+".txt")
     else
       return nil
     end
   end
 
   def update_data(data)
-    if(File.exist?(DATAPATH+@escape_name+".txt"))
-      time = File.stat(DATAPATH+@escape_name+".txt").mtime.to_i.to_s
+    if(File.exist?(DATA_PATH+@escape_name+".txt"))
+      time = File.stat(DATA_PATH+@escape_name+".txt").mtime.to_i.to_s
       # TODO: 最終更新が5n分前より最近だったら、バックアップしない的な機能をつける
       File.rename(
-                  DATAPATH+@escape_name+".txt",
-                  DATAPATH+@escape_name+"."+time+".txt")
+                  DATA_PATH+@escape_name+".txt",
+                  DATA_PATH+@escape_name+"."+time+".txt")
     end
-    File.open(DATAPATH+@escape_name+".txt","w") do |w|
+    File.open(DATA_PATH+@escape_name+".txt","w") do |w|
       w.binmode
       w.write data
     end
-    Dir["#{DATAPATH}*.cache"].each do |fname|
+    Dir["#{CACHE_PATH}*.cache"].each do |fname|
       File.delete(fname)
     end
   end
 
   def snapshot_list()
-    Dir[DATAPATH+@escape_name+"*.txt"].map do |fname|
-      TextSnapshot.new(fname)
+    dir = Pathname.new(DATA_PATH)
+    Pathname.glob(dir+@escape_name+"*.txt").map do |file|
+      TextSnapshot.new(file.relative_path_from(dir).to_s)
     end
   end
 end
@@ -75,7 +77,7 @@ class TextSnapshot < Snapshot
   end
 
   def data
-    File.open(@fname,"r") do |r|
+    File.open(DATA_PATH + @fname,"r") do |r|
       r.binmode
       return r.read
     end
@@ -90,8 +92,8 @@ class TextSnapshot < Snapshot
   end
 
   def cache
-    if(File.exist?("#{@fname}.cache"))
-      File.open("#{@fname}.cache","r") do |r|
+    if(File.exist?("#{CACHE_PATH}#{@fname}.cache"))
+      File.open("#{CACHE_PATH}#{@fname}.cache","r") do |r|
         r.binmode
         return r.read
       end
@@ -101,7 +103,7 @@ class TextSnapshot < Snapshot
   end
 
   def update_cache(cache)
-    File.open("#{@fname}.cache","w") do |w|
+    File.open("#{CACHE_PATH}#{@fname}.cache","w") do |w|
       w.binmode
       w.write cache
     end

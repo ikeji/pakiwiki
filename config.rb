@@ -10,7 +10,8 @@ WIKITITLE = "PakiWiki Web"
 
 # Using TextStorage
 # データディレクトリまでのパス
-DATAPATH = (Pathname.new(__FILE__).parent+"wiki/").to_s
+DATA_PATH = (Pathname.new(__FILE__).parent+"wiki/").to_s
+CACHE_PATH = DATAPATH
 
 # Using edit
 # Use easy password
