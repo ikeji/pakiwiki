@@ -1,3 +1,4 @@
+DOT_CMD = "/usr/local/bin/dot"
 DOT_OPT = "-Nfontname='/usr/local/share/fonts/TrueType/ipag.ttf'"
 
 
@@ -115,18 +116,21 @@ def block_graph(element)
   fhname = fname + ".html"
   uname = $wiki.cgibase + "/plugin/graph/"+name + ".png"
   if(!File.exist?(fname) || !File.exist?(fhname))
-    IO.popen("dot #{DOT_OPT} -Tpng -o #{fname}","w") do |w|
+    IO.popen("#{DOT_CMD} #{DOT_OPT} -Tpng -o #{fname}","w") do |w|
       w.puts dot
     end
-    IO.popen("dot -Tcmapx -o #{fhname}","w") do |w|
+    IO.popen("#{DOT_CMD} #{DOT_OPT} -Tcmapx -o #{fhname}","w") do |w|
       w.puts dot
     end
   end
   areas = []
+  begin
   File.read(fhname).gsub(/<area([^>]+)\/>/)do 
     tmp = {}
     $1.gsub(/([a-z]+)\=\"([^"]+)\"/){ tmp[$1] = $2  }
     areas << tmp
+  end
+  rescue
   end
   area = areas.map{|i| ["area",i] }
   
