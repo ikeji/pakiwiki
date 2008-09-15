@@ -88,7 +88,7 @@ class TextSnapshot < Snapshot
     if(@fname=~/\.(\d+)@\d+\.txt/)
       return Time.at($1.to_i)
     else
-      return File.stat(@fname).mtime
+      return File.stat(DATA_PATH + @fname).mtime
     end
   end
 
