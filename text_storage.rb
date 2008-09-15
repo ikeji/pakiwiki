@@ -58,6 +58,7 @@ class TextPage < Page
       w.binmode
       w.write data
     end
+    return if !ENABLE_CACHE
     Dir["#{CACHE_PATH}*.cache"].each do |fname|
       File.delete(fname)
     end
@@ -92,6 +93,7 @@ class TextSnapshot < Snapshot
   end
 
   def cache
+    return nil if !ENABLE_CACHE
     if(File.exist?("#{CACHE_PATH}#{@fname}.cache"))
       File.open("#{CACHE_PATH}#{@fname}.cache","r") do |r|
         r.binmode
@@ -103,6 +105,7 @@ class TextSnapshot < Snapshot
   end
 
   def update_cache(cache)
+    return if !ENABLE_CACHE
     File.open("#{CACHE_PATH}#{@fname}.cache","w") do |w|
       w.binmode
       w.write cache

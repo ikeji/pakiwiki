@@ -9,6 +9,7 @@ WIKITITLE = "PakiWiki Web"
 #BASEPATH = "/wiki.cgi"
 
 # Using TextStorage
+ENABLE_CACHE = true
 # データディレクトリまでのパス
 DATA_PATH = (Pathname.new(__FILE__).parent+"wiki/").to_s
 CACHE_PATH = DATA_PATH
