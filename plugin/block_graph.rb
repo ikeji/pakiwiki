@@ -125,11 +125,11 @@ def block_graph(element)
   end
   areas = []
   begin
-  File.read(fhname).gsub(/<area([^>]+)\/>/)do 
-    tmp = {}
-    $1.gsub(/([a-z]+)\=\"([^"]+)\"/){ tmp[$1] = $2  }
-    areas << tmp
-  end
+    File.read(fhname).gsub(/<area([^>]+)\/>/)do 
+      tmp = {}
+      $1.gsub(/([a-z]+)\=\"([^"]+)\"/){ tmp[$1] = $2  }
+      areas << tmp
+    end
   rescue
   end
   area = areas.map{|i| ["area",i] }
