@@ -113,8 +113,4 @@ class TextSnapshot < Snapshot
   end
 end
 
-# FIXME: 設定ファイルで選べるようにする。
-
-$storage = TextStorage.new()
-
 # vim: sw=2 : ts=1000 :

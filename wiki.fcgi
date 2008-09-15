@@ -1,16 +1,19 @@
 #!/usr/local/bin/ruby
 
 # FIXME: 後で、これらのrequireとか、pluginを読み込んだ1ファイルを作るプログラムを作る。
-require "./config.rb"
 require "./plugin.rb"
 require "./storage.rb"
 require "./text_storage.rb"
+require "./db_storage.rb"
 require "./ast.rb"
 require "./yatmlperser.rb"
 require "./wabisabi.rb"
 require "./converter.rb"
 require "./template.rb"
 require "./wiki.rb"
+require "./config.rb"
+
+$storage = STORAGE.new
 
 require 'fcgi'
 
@@ -26,7 +29,8 @@ rescue Exception => e
   puts "Oops!!!"
   puts
   puts
-  puts "Exception: " + e
+  puts "Exception: " + e.class.inspect
+  puts e
   puts
   puts "Backtrace:"
   print e.backtrace.join("\n")

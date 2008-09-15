@@ -4,15 +4,23 @@ require 'pathname'
 
 WIKITITLE = "PakiWiki Web"
 
-# cgiが置いてある場所までのURLフルパス
-# FIXME: 有効にする。
+# Path for this cgi.
+# FIXME: Enable it.
 #BASEPATH = "/wiki.cgi"
+
+# Storage
+# You must select one storage.
+STORAGE = TextStorage
+#STORAGE = DBStorage
 
 # Using TextStorage
 ENABLE_CACHE = true
-# データディレクトリまでのパス
+# Path for data directory.
 DATA_PATH = (Pathname.new(__FILE__).parent+"wiki/").to_s
 CACHE_PATH = DATA_PATH
+
+# Using DBStorage
+DBPATH = "DBI:SQLite:wiki/wiki.sqlite"
 
 # Using edit
 # Use easy password
