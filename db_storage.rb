@@ -1,4 +1,7 @@
-require 'dbi'
+begin
+  require 'dbi'
+rescue LoadError
+end
 
 class DBStorage < Storage
   def initialize()
