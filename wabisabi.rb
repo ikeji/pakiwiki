@@ -6,8 +6,10 @@ class WabisabiConverter
         CGI.escapeHTML(e)
       else
         "<" + CGI.escapeHTML(e[0]) + 
-          e[1].keys.map {|k| " " + CGI.escapeHTML(k) + "=\"" + CGI.escapeHTML(e[1][k]) + "\""}.join("") + 
-          if(e.size==2)
+          e[1].keys.map do |k|
+            " " + CGI.escapeHTML(k) + "=\"" + CGI.escapeHTML(e[1][k]) + "\""
+          end.join("") + 
+          if(e.size==2 && e[0] != "div") # HACK: Don't close div tag.
             " />" 
           else 
             ">" + toHTML(e[2..-1]) + "</" + CGI.escapeHTML(e[0]) + ">"
