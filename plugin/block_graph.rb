@@ -16,7 +16,7 @@ class DotParser
     (whitespace| char("\n") | char("\r") | comment_block("/*","*/")).many_ 
   end
   def id
-    regexp(/[a-zA-Z_][a-zA-Z0-9_]*/) | regexp(/-?(\.[0-9]+|[0-9]+(\.[0-9]*)?)/) | 
+    regexp(/[a-zA-Z_][a-zA-Z0-9_]*/) | regexp(/-?(\.[0-9]+|[0-9]+(\.[0-9]*)?)/) | regexp(/\w+/) |
       (char("\"") >> (not_char(?")|str("\\\"")).many_.fragment << char("\"")).map do |raw|
          raw.gsub("\\\"","\"")
       end
@@ -108,7 +108,7 @@ def block_graph(element)
   dot = element.innerYATML
   begin 
     links = DotParser.parser.parse(dot).flatten.uniq.sort.map{|i| "\"#{i.gsub("\"","\\\"")}\" [ URL = \"#{ $wiki.make_link(i) }\"]; " }.join()
-    dot = dot.gsub("{","{#{links}") 
+    dot = dot.sub("{","{#{links}") 
   rescue 
   end
   name = Digest::SHA1.hexdigest(dot)
