@@ -107,7 +107,7 @@ require 'digest/sha1'
 def block_graph(element)
   dot = element.innerYATML
   begin 
-    links = DotParser.parser.parse(dot).flatten.uniq.sort.map{|i| "\"#{i.gsub("\"","\\\"")}\" [ URL = \"#{ $wiki.make_link(i) }\"]; " }.join()
+    links = DotParser.parser.parse(dot).flatten.uniq.sort.delete_if{|i| i=="graph"}.map{|i| "\"#{i.gsub("\"","\\\"")}\" [ URL = \"#{ $wiki.make_link(i) }\"]; " }.join()
     dot = dot.sub("{","{#{links}") 
   rescue 
   end
