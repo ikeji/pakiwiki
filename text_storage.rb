@@ -66,7 +66,7 @@ class TextPage < Page
 
   def snapshot_list()
     dir = Pathname.new(DATA_PATH)
-    Pathname.glob(dir+@escape_name+"*.txt").map do |file|
+    return Pathname.glob(dir+(@escape_name+".*txt")).map do |file|
       TextSnapshot.new(file.relative_path_from(dir).to_s)
     end
   end
