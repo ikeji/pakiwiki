@@ -59,7 +59,7 @@ class YATMLPerser
       el = parseTag()
       start = @str
       el.contents = parseBlocks(el.name)
-      el.innerYATML = start[0..(start.size - @str.size-1)]
+      el.innerYATML = start[0..(start.size - @str.size-1)] if(start.size - @str.size > 0)
       @str = @str.sub(/\A<\/@?(#{el.name})?>(\n)?/,"")
       return [el]
     else
