@@ -10,9 +10,6 @@ class Wiki
 
   def initialize(invoke, cgi = nil)
     $wiki = self;
-    # FIXME: 設定ファイルを読み込む。
-    # FIXME: 設定ファイルからpluginフォルダを読み込むようにする。
-    Plugin.load_plugins()
 
     return unless invoke 
 

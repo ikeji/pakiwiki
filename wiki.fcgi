@@ -1,7 +1,6 @@
-#!/usr/local/bin/ruby
+#!/usr/bin/ruby
 
 # FIXME: 後で、これらのrequireとか、pluginを読み込んだ1ファイルを作るプログラムを作る。
-require "./plugin.rb"
 require "./storage.rb"
 require "./text_storage.rb"
 require "./db_storage.rb"
@@ -12,6 +11,7 @@ require "./converter.rb"
 require "./template.rb"
 require "./wiki.rb"
 require "./config.rb"
+require "./plugin.rb"
 
 $storage = STORAGE.new
 

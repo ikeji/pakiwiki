@@ -48,4 +48,8 @@ class Plugin
   end
 end
 
+# FIXME: 設定ファイルを読み込む。
+# FIXME: 設定ファイルからpluginフォルダを読み込むようにする。
+Plugin.load_plugins()
+
 # vim: sw=2 : ts=1000 :
