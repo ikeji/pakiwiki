@@ -14,6 +14,8 @@ require Pathname.new(__FILE__).parent+"wiki.rb"
 require Pathname.new(__FILE__).parent+"config.rb"
 require Pathname.new(__FILE__).parent+"plugin.rb"
 
+$storage = STORAGE.new
+
 Wiki.new(false)
 
 $KCODE = kcode
