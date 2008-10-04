@@ -1,15 +1,15 @@
 def action_comment()
   page = $storage.get_page($wiki.page)
-  data = $wiki.cgi['comm'].first;
-  pass = $wiki.cgi['pass'].first;
-  key = $wiki.cgi['key'].first;
-  if(data == "")
+  data = $wiki.cgi.params['comm'].first;
+  pass = $wiki.cgi.params['pass'].first;
+  key = $wiki.cgi.params['key'].first;
+  if(!data)
     # FIXME error message
     raise "hello"
   end
 
   if(EASYPASSWORD)
-    if(key == "" || pass == "" )
+    if(!key || !pass)
       key = rand(100).to_s
       return :title=> "Password check!", 
         :body => WabisabiConverter.toHTML([
