@@ -3,7 +3,7 @@ require 'digest/md5'
 def action_edit()
   snapshot = $storage.get_page($wiki.page).last_snapshot
   old = snapshot.data if snapshot != nil
-  old_digest = Digest::MD5.new(old).to_s
+  old_digest = Digest::MD5.new.update(old.to_s).to_s
   key = old_digest[0..1].to_i(16)
   return :title => "Edit of #{$wiki.page}",
     :body => WabisabiConverter.toHTML([

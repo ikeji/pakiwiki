@@ -13,7 +13,7 @@ def action_update()
   snapshot = $storage.get_page($wiki.page).last_snapshot
   current = snapshot.data if snapshot != nil
   
-  if( digest != nil && Digest::MD5.new(current) != digest )
+  if( digest != nil && Digest::MD5.new.update(current) != digest )
     left = Diff::makeDiff(before_edit.split(/\r?\n/),current.split(/\r?\n/))
     right = Diff::makeDiff(before_edit.split(/\r?\n/),data.split(/\r?\n/))
     l = r = 0
@@ -57,7 +57,7 @@ def action_update()
       end
     end
     
-    current_digest = Digest::MD5.new(current).to_s
+    current_digest = Digest::MD5.new.update(current).to_s
     key = current_digest[0..1].to_i(16)
     new_data = result.join("\n")
     return :title => "Edit of #{$wiki.page}",
