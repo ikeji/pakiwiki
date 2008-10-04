@@ -8,7 +8,8 @@ def action_update()
   digest = $wiki.cgi.params['digest'].first;
   before_edit = $wiki.cgi.params['before_edit'].first;
 
-  raise Exception.new("PASSWORD ERROR") if( EASYPASSWORD && digest[0..1].to_i(16).to_s != key)
+  pkey = digest[0..1].to_i(16).to_s
+  raise Exception.new("PASSWORD ERROR: #{pkey} vs #{key}" ) if( EASYPASSWORD && pkey != pass)
 
   snapshot = $storage.get_page($wiki.page).last_snapshot
   current = snapshot.data if snapshot != nil
