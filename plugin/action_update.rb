@@ -14,7 +14,7 @@ def action_update()
   snapshot = $storage.get_page($wiki.page).last_snapshot
   current = snapshot.data if snapshot != nil
   
-  if( digest != nil && Digest::MD5.new.update(current) != digest )
+  if( digest != nil && Digest::MD5.new.update(current.to_s) != digest )
     left = Diff::makeDiff(before_edit.split(/\r?\n/),current.split(/\r?\n/))
     right = Diff::makeDiff(before_edit.split(/\r?\n/),data.split(/\r?\n/))
     l = r = 0
