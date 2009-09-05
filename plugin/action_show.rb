@@ -1,11 +1,16 @@
+require 'digest/md5'
+
 def action_show()
   page = $storage.get_page($wiki.page)
   snapshot = page.last_snapshot()
   alert = ""
   aptitle = ""
   if($wiki.time != nil)
+    old = snapshot.data if snapshot != nil
+    old_digest = Digest::MD5.new.update(old.to_s).to_s
+    key = old_digest[0..1].to_i(16)
+
     snapshot = page.find_snapshot($wiki.time)
-    key = rand(100).to_s
     alert = WabisabiConverter.toHTML([
       ["div",{"class"=>"alert"},
         "This page is old version(#{snapshot.time.to_s})",
@@ -13,6 +18,7 @@ def action_show()
                   "method"=>"post",
                   "name"=>"edit",
                 },
+          ["input",{"type"=>"hidden","name"=>"digest","value"=>"#{old_digest}"}],
           ["input",{"type"=>"hidden",
                     "name"=>"msg",
                     "value"=>snapshot.data,
@@ -24,7 +30,6 @@ def action_show()
           ["br",{}],
           "(Need insert '#{key}' to this box. ",
           ["input",{"type"=>"text","name"=>"pass"}],
-          ["input",{"type"=>"hidden","name"=>"key","value"=>"#{key.crypt("AA")}"}],
           ")",
         ] : [] )
       ]])
