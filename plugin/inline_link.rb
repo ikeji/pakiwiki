@@ -1,16 +1,20 @@
 require 'iconv'
 
+URL_MATCH = (/\A(http|https|ftp|skype|callto):[A-Za-z0-9:\/?#\[\]@~$&'()*+,;=%._^\-]*\Z/m)
+
 def inline_link(element)
   interwiki = load_inter_wiki()
   interwiki_tag = interwiki.keys.map{|i| Regexp.escape(i) }.join("|")
   page = element.attr["page"]
   page = element.innerYATML if !page
   if(page =~ Regexp.new("\\A(#{interwiki_tag}):(.*)\\Z"))
-    target = Iconv.conv(interwiki[$1][1],"UTF-8",$2) rescue $2
-    href = interwiki[$1][0] + CGI.escape(target)
+    target_page = $1
+    target_name = $2
+    target = Iconv.conv(interwiki[target_page][1],"UTF-8",target_name) rescue target_name
+    href = interwiki[target_page][0] + CGI.escape(target)
     return ["a",{"href"=>href,"rel"=>"nofollow","class"=>"outlink"},element.innerYATML]
   end
-  if(page =~ /\A(http|https|ftp|skype|callto):[A-Za-z0-9:\/?#\[\]@~$&'()*+,;=%._^\-]*\Z/m)
+  if(page =~ URL_MATCH)
     # FIXME: リンク内でタグ使うには?
     href = page
     return ["a",{"href"=>href,"rel"=>"nofollow","class"=>"outlink"},element.innerYATML]
@@ -33,8 +37,10 @@ def load_inter_wiki()
   page.data.split("\n").map{|i| i.chomp }.delete_if{|l| l=~/^\*/}.map do|l|
     item = l.split(" ")
     if item.size == 3
+      item[1] = "http://ikejima.org/" unless item[1] =~ URL_MATCH
       retval[item[0]] = [item[1],item[2]];
     elsif item.size == 2
+      item[1] = "http://ikejima.org/" unless item[1] =~ URL_MATCH
       retval[item[0]] = [item[1],"UTF-8"];
     end
   end
