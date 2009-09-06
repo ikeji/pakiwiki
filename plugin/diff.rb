@@ -114,7 +114,7 @@ if __FILE__ == $0
       assert_equal(1,r.size)
       assert_equal(r[0].diffmark,Diff::ADD)
     end
-    def test_del
+    def test_change
       a = ["hoge","foo","bar"]
       b = ["hoge","fuga","bar"]
       r = Diff.makeDiff(a,b)
