@@ -13,3 +13,33 @@
   border-bottom-width: 1px;
   border-style: dotted;
 }
+
+.code {
+  margin: 40px;
+}
+
+.code .filename {
+  border-width: 0px;
+  border-top-width: 1px;
+  border-style: solid;
+  text-align: center;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.append {
+  border: 1px solid #ff9999;
+  padding: 20px
+}
+
+.append .date {
+  text-align: right;
+  color: #ff9999;
+  margin-bottom: -20px;
+  margin-right: -20px;
+}
+
+.red {
+  color: red;
+}
