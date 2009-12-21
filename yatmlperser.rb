@@ -164,7 +164,17 @@ class YATMLPerser
     end
     pagelist = $storage.list.map{|p|p.page_title}.
       #delete_if{|p| p =~ /^[A-Z][a-z]+([A-Z][a-z]+)+$/}.
-      map{|p|Regexp.escape(p)}.sort.reverse.join("|")
+      map do|p|
+        r = []
+        parent = $wiki.page.split("/")
+        while(!parent.empty?)
+          if(p =~ Regexp.new("\\A#{Regexp.escape(parent.join('/'))}/(.*)"))
+            r.push Regexp.escape($1)
+          end
+          parent.pop
+        end
+        r.push Regexp.escape(p)
+      end.flatten.sort.reverse.join("|")
     if(str =~ Regexp.new("\\A(.*?)(#{pagelist})(.*?)\\Z",Regexp::MULTILINE))
       match = [$1,$2,$3]
       el = Element.new(false,"autolink") do|el|
