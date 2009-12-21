@@ -44,9 +44,13 @@ def action_show()
   end
 
   body = ""
-  if(snapshot.cache == nil)
-    body = convert(snapshot.data)
-    snapshot.update_cache(body)
+  if(snapshot.cache == nil || $wiki.cgi.params['reload'].first != nil)
+    begin
+      body = convert(snapshot.data)
+      snapshot.update_cache(body)
+    rescue NoMemoryError
+      body = "An error ouccurred."
+    end
   else
     body = snapshot.cache
   end
