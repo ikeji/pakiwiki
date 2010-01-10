@@ -11,17 +11,18 @@ class Wiki
   def initialize(invoke, cgi = nil)
     $wiki = self;
 
+    @page = "FrontPage"
+    @cmd = "show"
+
     return unless invoke 
 
     @cgi = cgi || CGI.new()
     path = @cgi.path_info
 
-    @page = "FrontPage"
-    @cmd = "show"
     @cgibase = @cgi.script_name
     
     # FIXME:
-    @cgibase = @cgi.script_name.gsub(/\/wiki.f?cgi/,"")
+    @cgibase = (@cgi.script_name || "/").gsub(/\/wiki.f?cgi/,"")
 
     # pathの解析
     #   wiki.cgi/pagename とか wiki.cgi/pagename/edit とか。
