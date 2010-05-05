@@ -1,4 +1,5 @@
 require "pp"
+require "cgi"
 
 def action_dump()
   page = $storage.get_page($wiki.page)
@@ -25,7 +26,7 @@ def action_dump()
           ]
         ]
 
-  return :body => WabisabiConverter.toHTML(out), :title => $wiki.page;
+  return :body => WabisabiConverter.toHTML(out), :title => CGI.escapeHTML($wiki.page);
 end
 
 # vim: sw=2 : ts=1000 :

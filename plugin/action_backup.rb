@@ -1,4 +1,5 @@
 require "time"
+require "cgi"
 
 def action_backup()
   page = $storage.get_page($wiki.page)
@@ -16,7 +17,7 @@ def action_backup()
 EOL
   end.join()
 
-  return :title => $wiki.page + " - 過去の編集一覧" ,
+  return :title => CGI.escapeHTML($wiki.page) + " - 過去の編集一覧" ,
     :body => "<ul>" + list + "</ul>"
 end
 

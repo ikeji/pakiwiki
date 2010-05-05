@@ -1,5 +1,6 @@
 require 'plugin/diff.rb'
 require 'digest/md5'
+require 'cgi'
 
 def action_update()
   page = $storage.get_page($wiki.page)
@@ -61,7 +62,7 @@ def action_update()
     current_digest = Digest::MD5.new.update(current).to_s
     key = current_digest[0..1].to_i(16)
     new_data = result.join("\n")
-    return :title => "Edit of #{$wiki.page}",
+    return :title => "Edit of #{CGI.escapeHTML($wiki.page)}",
       :body => WabisabiConverter.toHTML([
         ["h2",{}, "!!!CONFLICTED!!! Update was conflicted."],
         ["form",{ "action"=>$wiki.make_link($wiki.page,"update"),

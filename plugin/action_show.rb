@@ -1,4 +1,5 @@
 require 'digest/md5'
+require 'cgi'
 
 def action_show()
   page = $storage.get_page($wiki.page)
@@ -55,7 +56,7 @@ def action_show()
     body = snapshot.cache
   end
 
-  return :body => (alert + body), :title => ($wiki.page + aptitle)
+  return :body => (alert + body), :title => (CGI.escapeHTML($wiki.page) + aptitle)
 end
 
 # vim: sw=2 : ts=1000 :

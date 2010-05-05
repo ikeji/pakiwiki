@@ -1,4 +1,5 @@
 require "plugin/diff.rb"
+require "cgi"
 
 def action_visualdiff()
   page = $storage.get_page($wiki.page)
@@ -25,7 +26,7 @@ def action_visualdiff()
   end
 
   if(lastsnapshot == nil)
-    return :body => "this is first version", :title => "#{$wiki.page} -- diff"
+    return :body => "this is first version", :title => "#{CGI.escapeHTML($wiki.page)} -- diff"
   end
  
   old = convertYatml2Wabisabi(lastsnapshot.data)
@@ -34,7 +35,7 @@ def action_visualdiff()
  
   html = WabisabiConverter.toHTML(mkwabidiff(old,new))
   
-  return :body => html, :title => "Diff of " + $wiki.page;
+  return :body => html, :title => "Diff of " + CGI.escapeHTML($wiki.page);
 end
 
 def mkwabidiff(old,new)

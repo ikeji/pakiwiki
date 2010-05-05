@@ -1,11 +1,12 @@
 require 'digest/md5'
+require 'cgi'
 
 def action_edit()
   snapshot = $storage.get_page($wiki.page).last_snapshot
   old = snapshot.data if snapshot != nil
   old_digest = Digest::MD5.new.update(old.to_s).to_s
   key = old_digest[0..1].to_i(16)
-  return :title => "Edit of #{$wiki.page}",
+  return :title => "Edit of #{CGI.escapeHTML($wiki.page)}",
     :body => WabisabiConverter.toHTML([
        ["form",{ "action"=>$wiki.make_link($wiki.page,"update"),
                  "method"=>"post",

@@ -1,4 +1,5 @@
 require "plugin/diff.rb"
+require "cgi"
 
 def action_srcdiff()
   page = $storage.get_page($wiki.page)
@@ -25,7 +26,7 @@ def action_srcdiff()
   end
 
   if(lastsnapshot == nil)
-    return :body => "this is first version", :title => "#{$wiki.page} -- diff"
+    return :body => "this is first version", :title => "#{CGI.escapeHTML($wiki.page)} -- diff"
   end
   
   html = WabisabiConverter.toHTML(
@@ -44,7 +45,7 @@ def action_srcdiff()
       end
     ])
   
-  return :body => html, :title => "Diff of " + $wiki.page;
+  return :body => html, :title => "Diff of " + CGI.escapeHTML($wiki.page);
 end
 
 # vim: sw=2 : ts=1000 :
