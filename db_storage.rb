@@ -1,6 +1,6 @@
 begin
   require 'dbi'
-rescue LoadError
+rescue
 end
 
 class DBStorage < Storage
