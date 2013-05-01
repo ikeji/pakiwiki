@@ -7,7 +7,7 @@ def block_table(element)
   csv.each do |l|
     row = ["tr",{}]
     l.each do |i|
-      cont = i==nil ? [] : convertYatml2Wabisabi(i)
+      cont = i==nil ? [] : convertYatml2Wabisabi(i.to_s)
       row << (["td",{}] + cont)
     end
     ret << row

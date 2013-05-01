@@ -3,7 +3,7 @@ require 'pathname'
 
 # Using Template
 
-WIKITITLE = "PakiWiki Web"
+WIKITITLE = "IKeJI Wiki 2nd"
 
 # Path for this cgi.
 # FIXME: Enable it.
@@ -27,7 +27,7 @@ DBPATH = "DBI:SQLite:wiki/wiki.sqlite"
 
 # Using edit
 # Use easy password
-EASYPASSWORD = false
+EASYPASSWORD = true
 
 # for en/ja plugin
 #LANG = "en"

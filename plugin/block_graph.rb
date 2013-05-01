@@ -116,6 +116,7 @@ def block_graph(element)
   fhname = fname + ".html"
   uname = $wiki.cgibase + "/plugin/graph/"+name + ".png"
   if(!File.exist?(fname) || !File.exist?(fhname))
+    STDERR.puts "CMD=" + "#{DOT_CMD} #{DOT_OPT} -Tpng -o #{fname}"
     IO.popen("#{DOT_CMD} #{DOT_OPT} -Tpng -o #{fname}","w") do |w|
       w.puts dot
     end
