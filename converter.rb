@@ -1,3 +1,4 @@
+# coding: UTF-8
 class Converter
 
   def method_missing(name,element)

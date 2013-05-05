@@ -1,3 +1,4 @@
+# coding: UTF-8
 def block_subsubsubsection(element)
   return ["h5",{}] + convert_element(element.contents)
 end

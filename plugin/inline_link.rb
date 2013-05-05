@@ -1,3 +1,5 @@
+# coding: UTF-8
+
 require 'iconv'
 
 URL_MATCH = (/\A(http|https|ftp|skype|callto|mailto):[A-Za-z0-9:\/?#\[\]@~$&'()*+,;=%._^\-]*\Z/m)

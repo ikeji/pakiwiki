@@ -1,3 +1,4 @@
+# coding: UTF-8
 def block_append(element)
   if element.attr.has_key?("date")
     return ["div", {"class"=>"append"}] +

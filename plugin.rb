@@ -1,3 +1,4 @@
+# coding: UTF-8
 
 # plugin の仕様
 #   引数でWikiオブジェクトのインスタンスを受ける。
@@ -32,13 +33,14 @@ $plugins = {}
 class Plugin
   attr_reader :source
   def initialize(file)
-    instance_eval( @source = File.read(file) , file ,1)
+    instance_eval(@source = File.read(file.to_s, :encoding => 'UTF-8') , file.to_s ,1)
   end
   def self.load_plugins(folder = (Pathname.new(__FILE__).parent + "plugin"))
     Pathname.glob(folder + "**/*.rb").sort.each do |file|
       begin
         $plugins[file.relative_path_from(folder).to_s.gsub("/","::")[0..-4]] = Plugin.new(file)
-      rescue LoadError
+      rescue LoadError => e
+        puts "Couldn't load plugin #{file}"
       end
     end
   end

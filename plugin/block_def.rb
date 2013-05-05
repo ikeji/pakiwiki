@@ -1,3 +1,4 @@
+# coding: UTF-8
 def block_def(element)
   items = []
   element.innerYATML.split(/\r?\n/).each do|line|

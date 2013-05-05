@@ -1,3 +1,5 @@
+# coding: UTF-8
+#
 def inline_br(element)
   return ["br",{}]
 end

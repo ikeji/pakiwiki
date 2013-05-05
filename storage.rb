@@ -1,3 +1,5 @@
+# coding: UTF-8
+
 class Storage
   def get_page(name)
     raise NotImplementedError, 'A subclass must override this method.'

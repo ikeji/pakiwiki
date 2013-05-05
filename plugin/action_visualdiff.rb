@@ -1,4 +1,5 @@
-require "plugin/diff.rb"
+# coding: UTF-8
+require "./plugin/diff.rb"
 require "cgi"
 
 def action_visualdiff()

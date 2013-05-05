@@ -1,3 +1,5 @@
+# coding: UTF-8
+
 def inline_b(element)
   return ["b",{},element.innerYATML]
 end

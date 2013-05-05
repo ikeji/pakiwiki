@@ -1,4 +1,5 @@
 #!/usr/bin/ruby
+# coding: UTF-8
 
 # FIXME: 後で、これらのrequireとか、pluginを読み込んだ1ファイルを作るプログラムを作る。
 require "./storage.rb"

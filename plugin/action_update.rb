@@ -1,4 +1,5 @@
-require 'plugin/diff.rb'
+# coding: UTF-8
+require './plugin/diff.rb'
 require 'digest/md5'
 require 'cgi'
 
@@ -10,7 +11,7 @@ def action_update()
   before_edit = $wiki.cgi.params['before_edit'].first;
 
   pkey = digest[0..1].to_i(16).to_s
-  raise Exception.new("PASSWORD ERROR: #{pkey} vs #{key}" ) if( EASYPASSWORD && pkey != pass)
+  raise Exception.new("PASSWORD ERROR: #{pkey} vs #{pass}" ) if( EASYPASSWORD && pkey != pass)
 
   snapshot = $storage.get_page($wiki.page).last_snapshot
   current = snapshot.data if snapshot != nil

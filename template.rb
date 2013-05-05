@@ -1,3 +1,5 @@
+# coding: UTF-8
+
 require 'erb'
 def render_page(title,body)
   #FIXME: thease valiable to config file

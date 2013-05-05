@@ -1,4 +1,5 @@
 #!/usr/local/bin/ruby
+# coding: UTF-8
 
 require 'iconv'
 require '../storage.rb'

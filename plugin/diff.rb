@@ -1,3 +1,4 @@
+# coding: UTF-8
 
 module Math
   def self.min(a,b)

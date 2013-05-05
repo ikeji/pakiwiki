@@ -26,13 +26,11 @@ def action_edit()
                       },
            "#{old}"
          ],
-       ] + (EASYPASSWORD ? [
-         ["br",{}],
-         "Please input '#{key}' to this field.",
+       ] + (EASYPASSWORD ? [ ["div", {"class" => "pass"},
+         "Please input '#{key}' to this field:",
          ["input",{"type"=>"text","name"=>"pass"}],
-       ] : [] ) + [
-         ["br",{}],
-         ["input",{"type"=>"submit","value"=>"write"}]
+       ]] : [ ["br",{}] ] ) + [
+         ["input",{"type"=>"submit","value"=>"Write"}]
      ]])
 end
 # vim: sw=2 : ts=1000 :

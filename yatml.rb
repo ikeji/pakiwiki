@@ -1,3 +1,4 @@
+# coding: UTF-8
 #コンバート専用
 
 kcode = $KCODE

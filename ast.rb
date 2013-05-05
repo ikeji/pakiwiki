@@ -1,3 +1,4 @@
+# coding: UTF-8
 class Element
   attr_accessor("block")
   attr_accessor("name")

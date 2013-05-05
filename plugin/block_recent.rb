@@ -1,3 +1,4 @@
+# coding: UTF-8
 def block_recent(element)
   list = $storage.list().sort{|a,b| b.last_snapshot.time <=> a.last_snapshot.time }.map do |i|
     ["li",{},

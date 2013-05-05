@@ -1,3 +1,4 @@
+# coding: UTF-8
 def block_comment(element)
   return ["div",{},
           ["form",{"action"=>$wiki.make_link($wiki.page,"comment"),"method"=>"post"},

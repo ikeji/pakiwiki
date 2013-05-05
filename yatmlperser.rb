@@ -1,3 +1,4 @@
+# coding: UTF-8
 class YATMLPerser
   def self.parse(string)
     return self.new(string).parse()

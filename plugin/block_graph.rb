@@ -1,6 +1,6 @@
+# coding: UTF-8
 DOT_CMD = "/usr/local/bin/dot"
 DOT_OPT = "-Nfontname='/usr/local/share/fonts/TrueType/ipag.ttf'"
-
 
 require "rubygems"
 require "rparsec"
@@ -125,7 +125,7 @@ def block_graph(element)
   end
   areas = []
   begin
-    File.read(fhname).gsub(/<area([^>]+)\/>/)do 
+    File.read(fhname, :encoding => "UTF-8").gsub(/<area([^>]+)\/>/) do 
       tmp = {}
       $1.gsub(/([a-z]+)\=\"([^"]+)\"/){ tmp[$1] = $2  }
       areas << tmp

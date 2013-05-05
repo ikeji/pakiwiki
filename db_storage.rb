@@ -1,6 +1,7 @@
+# coding: UTF-8
 begin
   require 'dbi'
-rescue
+rescue LoadError
 end
 
 class DBStorage < Storage

@@ -1,3 +1,4 @@
+# coding: UTF-8
 def block_section(element)
   return ["h2",{}] + convert_element(element.contents)
 end

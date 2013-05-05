@@ -1,4 +1,5 @@
 #!/usr/bin/ruby
+# coding: UTF-8
 
 begin
 # FIXME: 後で、これらのrequireとか、pluginを読み込んだ1ファイルを作るプログラムを作る。

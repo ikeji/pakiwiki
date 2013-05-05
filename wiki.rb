@@ -1,3 +1,4 @@
+# coding: UTF-8
 require "cgi"
 require "time"
 
@@ -52,8 +53,8 @@ class Wiki
   def make_link(page="FrontPage",action="show")
     page = page.gsub("/",".")
     return "#{cgibase}/" if action == "show" && page == "FrontPage"
-    return "#{cgibase}/#{CGI.escape(CGI.escape(page))}/#{action}/" if action != "show"
-    return "#{cgibase}/#{CGI.escape(CGI.escape(page))}/"
+    return "#{cgibase}/#{CGI.escape(page)}/#{action}/" if action != "show"
+    return "#{cgibase}/#{CGI.escape(page)}/"
   end
 
 end

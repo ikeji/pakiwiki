@@ -1,4 +1,4 @@
-require "plugin/diff.rb"
+require "./plugin/diff.rb"
 require "cgi"
 
 def action_srcdiff()

@@ -1,3 +1,4 @@
+# coding: UTF-8
 require "csv"
 
 def block_table(element)
