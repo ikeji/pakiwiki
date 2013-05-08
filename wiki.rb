@@ -27,10 +27,10 @@ class Wiki
 
     # pathの解析
     #   wiki.cgi/pagename とか wiki.cgi/pagename/edit とか。
-    if(path =~ /^\/([^@\/]+)(@([\dT:+-]+))?\/?$/)
+    if(path =~ /^\/([^@\/]+)(@([\dTZ:+-]+))?\/?$/)
       @time = Time.iso8601($3) if($3 != nil)
       @page = CGI.unescape($1).gsub(".","/")
-    elsif(path =~ /^\/([^@\/]+)(@([\dT:+-]+))?\/([a-z]+)\/?/)
+    elsif(path =~ /^\/([^@\/]+)(@([\dTZ:+-]+))?\/([a-z]+)\/?/)
       @time = Time.iso8601($3) if($3 != nil)
       @cmd = $4
       @page = CGI.unescape($1).gsub(".","/")

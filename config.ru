@@ -4,6 +4,7 @@ $stdout.sync = true
 require "./storage.rb"
 require "./text_storage.rb"
 require "./db_storage.rb"
+require "./mongo_storage.rb"
 require "./ast.rb"
 require "./yatmlperser.rb"
 require "./wabisabi.rb"
@@ -22,6 +23,8 @@ class FakeCGI < Rack::Request
     @header = {}
     @contents = []
     @params = nil
+    original_path_info = path_info
+    self.path_info = CGI.unescape(original_path_info)
   end
   def out(header)
     @code = '200'

@@ -23,11 +23,10 @@ class Page
   end
 
   def find_snapshot(time)
-    return last_snapshot if(time == nil)
-    snapshot = last_snapshot
-    for s in sorted_snapshot_list
-      return s if s.time == time
-      return s if s.time < time
+    return last_snapshot() if(time == nil)
+    snapshot = last_snapshot()
+    for s in sorted_snapshot_list()
+      return s if s.time.to_i <= time.to_i
       snapshot = s
     end
     return snapshot

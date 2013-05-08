@@ -8,7 +8,7 @@ def action_srcdiff()
   if($wiki.time != nil)
     for s in page.sorted_snapshot_list
       lastsnapshot = s
-      break if s.time < $wiki.time
+      break if s.time.to_i < $wiki.time.to_i
       snapshot = s
     end
   else
