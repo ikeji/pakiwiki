@@ -27,6 +27,7 @@ DBPATH = "DBI:SQLite:wiki/wiki.sqlite"
 
 # Using edit
 # Use easy password
+#EASYPASSWORD = false
 EASYPASSWORD = true
 
 # for en/ja plugin
