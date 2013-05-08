@@ -21,7 +21,7 @@ class TextStorage < Storage
   end
 
   def escape(string)
-    return string.gsub(/([^A-Za-z0-9])/n){ $1.bytes.map{|b| "-%02X" % b}.join() }
+    return string.force_encoding("ASCII-8BIT").gsub(/([^A-Za-z0-9])/n){ $1.bytes.map{|b| "-%02X" % b}.join() }
   end
 
   def unescape(string)
