@@ -1,1 +1,4 @@
 style/main.css
+vendor
+.bundle
+.sass-cache
