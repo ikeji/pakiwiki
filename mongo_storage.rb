@@ -1,4 +1,5 @@
 # coding: UTF-8
+require 'uri'
 begin
   require 'mongo'
 rescue LoadError
