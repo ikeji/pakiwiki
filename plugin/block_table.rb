@@ -2,7 +2,7 @@
 require "csv"
 
 def block_table(element)
-  csv = CSV::StringReader.new(element.innerYATML)
+  csv = CSV.parse(element.innerYATML)
   ret = ["table",{}]
   csv.each do |l|
     row = ["tr",{}]
