@@ -100,11 +100,11 @@ class MongoSnapshot < Snapshot
   private
 
   def escape(string)
-    return string.force_encoding("ASCII-8BIT").gsub(/([^A-Za-z0-9])/n){ $1.bytes.map{|b| "-%02X" % b}.join() }
+    return string.dup.force_encoding("ASCII-8BIT").gsub(/([^A-Za-z0-9])/n){ $1.bytes.map{|b| "-%02X" % b}.join() }
   end
 
   def unescape(string)
-    return string.gsub(/-(..)/) { $1.hex.chr }.force_encoding("UTF-8")
+    return string.gsub(/-(..)/) { $1.hex.chr }.dup.force_encoding("UTF-8")
   end
 end
 
