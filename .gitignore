@@ -2,3 +2,5 @@ style/main.css
 vendor
 .bundle
 .sass-cache
+*.swp
+*.cache
