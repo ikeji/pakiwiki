@@ -16,6 +16,9 @@ def render_page(title,body)
   css = Dir["style/*.css"].map do |i|
     "<link rel=\"stylesheet\" type=\"text/css\" href=\"#{$wiki.cgibase}/#{i}\" />"
   end.join("\n")
+  js = Dir["style/*.js"].map do |i|
+    "<script src=\"#{$wiki.cgibase}/#{i}\"></script>"
+  end.join("\n")
   cgi.out({"content-type"=>"text/html","charset"=>"utf-8"}) {
     ERB.new(<<END).result(binding)
 <?xml version="1.0" encoding="utf-8"?>
@@ -23,13 +26,15 @@ def render_page(title,body)
 <html xml:lang="ja" xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <%= css %>
+    <%= js %>
     <title><%= title %> -- <%= WIKITITLE %></title>
     <meta name="viewport" content="width=device-width,user-scalable=no" />
   </head>
   <body>
     <header>
-      <a href="#" id="menu-link">Menu</a>
-      <a href="#" id="edit-link">Edit</a>
+      <a href="#" class="back-link non-mobhide mobhide">Close</a>
+      <a href="#" class="menu-link non-mobhide">Menu</a>
+      <a href="#" class="edit-link non-mobhide">Edit</a>
       <h1><%= title %></h1>
     </header>
     <nav class="edit">
@@ -52,6 +57,7 @@ def render_page(title,body)
     <footer>
       Copyright (C) 2001-2013 IKeJI 
     </footer>
+    <script>w()</script>
   </body>
 </html>
 END
