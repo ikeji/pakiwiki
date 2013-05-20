@@ -5,6 +5,8 @@ body {
   font-family: Helvetica, Arial, sans-serif;
   background-color: #c5ccd4;
   background-image: linear-gradient(90deg, #c5ccd4 0%, #c5ccd4 75%, #cbd2d8 75%, #cbd2d8 100%);
+  background-image: -webkit-linear-gradient(180deg, #c5ccd4 0%, #c5ccd4 75%, #cbd2d8 75%, #cbd2d8 100%);
+  background-image: -moz-linear-gradient(180deg, #c5ccd4 0%, #c5ccd4 75%, #cbd2d8 75%, #cbd2d8 100%);
   background-size: 10px 1px;
 }
 
@@ -15,6 +17,8 @@ header {
   z-index: 9;
   background: #6d84a2;
   background-image: linear-gradient(180deg, #c1cedf 0%, #8ea2bc 50%, #859ab6 50%, #597498 100%);
+  background-image: -webkit-linear-gradient(270deg, #c1cedf 0%, #8ea2bc 50%, #859ab6 50%, #597498 100%);
+  background-image: -moz-linear-gradient(270deg, #c1cedf 0%, #8ea2bc 50%, #859ab6 50%, #597498 100%);
 }
 
 header a {
@@ -29,16 +33,20 @@ header a {
   border: 1px solid #314764;
   box-shadow: 0 1px 0 0 rgbs(255,255,255,0.5);
   background-image: linear-gradient(180deg, #8aa1bf 0%, #5877a2 50%, #476999 50%, #476999 100%);
+  background-image: -webkit-linear-gradient(270deg, #8aa1bf 0%, #5877a2 50%, #476999 50%, #476999 100%);
+  background-image: -moz-linear-gradient(270deg, #8aa1bf 0%, #5877a2 50%, #476999 50%, #476999 100%);
   padding: 10px;
   height: 15px;
+  line-height: 15px;
   margin: 3px 0px;
 }
 
-header #menu-link {
+header .menu-link,
+header .back-link {
   left: 3px;
 }
 
-header #edit-link {
+header .edit-link {
   right: 3px;
 }
 
@@ -73,9 +81,10 @@ article form {
 }
 article form textarea {
   background: transparent;
-  border:0px;
-  margin:12px;
-  width: 90%;
+  border: 0px;
+  box-sizing: border-box;
+  padding: 15px;
+  width: 100%;
 }
 article form textarea:after {
   width:100%;
@@ -160,6 +169,8 @@ nav.menu h2 {
   color: #fff;
   opacity: 0.9;
   background-image: linear-gradient(180deg, #98a6b0 0%, #98a6b0 40%, #b7c1c8 100%);
+  background-image: -webkit-linear-gradient(270deg, #98a6b0 0%, #98a6b0 40%, #b7c1c8 100%);
+  background-image: -moz-linear-gradient(270deg, #98a6b0 0%, #98a6b0 40%, #b7c1c8 100%);
   border-bottom: 1px solid #e0e0e0;
   margin: 0px;
 }
@@ -172,6 +183,10 @@ footer {
   text-shadow: 0 1px 0 rgba(255,255,255,0.75);
   font-size: 90%;
   text-align: center;
+}
+
+.mobhide {
+  display: none;
 }
 
 } /* Media query for phone */

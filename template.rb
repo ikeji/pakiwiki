@@ -14,21 +14,21 @@ def render_page(title,body)
     end
   end
   css = Dir["style/*.css"].map do |i|
-    "<link rel=\"stylesheet\" type=\"text/css\" href=\"#{$wiki.cgibase}/#{i}\" />"
+    "<link rel=\"stylesheet\" href=\"#{$wiki.cgibase}/#{i}\">"
   end.join("\n")
   js = Dir["style/*.js"].map do |i|
     "<script src=\"#{$wiki.cgibase}/#{i}\"></script>"
   end.join("\n")
   cgi.out({"content-type"=>"text/html","charset"=>"utf-8"}) {
-    ERB.new(<<END).result(binding)
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xml:lang="ja" xmlns="http://www.w3.org/1999/xhtml">
+    ERB.new(<<END.gsub(/\n */,"")).result(binding)
+<!DOCTYPE html>
+<html>
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no">
     <%= css %>
     <%= js %>
     <title><%= title %> -- <%= WIKITITLE %></title>
-    <meta name="viewport" content="width=device-width,user-scalable=no" />
   </head>
   <body>
     <header>
@@ -37,23 +37,26 @@ def render_page(title,body)
       <a href="#" class="edit-link non-mobhide">Edit</a>
       <h1><%= title %></h1>
     </header>
-    <nav class="edit">
-      <ul>
-        <li><a href="<%= $wiki.make_link() %>">Top</a></li>
-        <li><a href="<%= $wiki.make_link($wiki.page,"show") %>">PermanentLink</a></li>
-        <li><a href="<%= $wiki.make_link($wiki.page,"edit") %>">Edit</a></li>
-        <li><a href="<%= $wiki.make_link($wiki.page,"srcdiff") %>">Diff(src)</a></li>
-        <li><a href="<%= $wiki.make_link($wiki.page,"visualdiff") %>">Diff(visual)</a></li>
-        <li><a href="<%= $wiki.make_link($wiki.page,"backup") %>">OldVersion</a></li>
-        <li><a href="<%= $wiki.make_link($wiki.page,"dump") %>">Dump ast</a></li>
-      </ul>
-    </nav>
-    <article>
-<%= body %>
-    </article>
-    <nav class="menu">
-<%= menu %>
-    </nav>
+    <div class="content">
+      <nav class="edit mobhide">
+        <h2 class="mobhide">Edit contents</h2>
+        <ul>
+          <li><a href="<%= $wiki.make_link() %>">Top</a></li>
+          <li><a href="<%= $wiki.make_link($wiki.page,"show") %>">PermanentLink</a></li>
+          <li><a href="<%= $wiki.make_link($wiki.page,"edit") %>">Edit</a></li>
+          <li><a href="<%= $wiki.make_link($wiki.page,"srcdiff") %>">Diff(src)</a></li>
+          <li><a href="<%= $wiki.make_link($wiki.page,"visualdiff") %>">Diff(visual)</a></li>
+          <li><a href="<%= $wiki.make_link($wiki.page,"backup") %>">OldVersion</a></li>
+          <li><a href="<%= $wiki.make_link($wiki.page,"dump") %>">Dump ast</a></li>
+        </ul>
+      </nav>
+      <article class="main">
+        <%= body %>
+      </article>
+      <nav class="menu mobhide">
+        <%= menu %>
+      </nav>
+    </div>
     <footer>
       Copyright (C) 2001-2013 IKeJI 
     </footer>
