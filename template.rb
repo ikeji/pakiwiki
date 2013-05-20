@@ -16,7 +16,7 @@ def render_page(title,body)
   css = Dir["style/*.css"].map do |i|
     "<link rel=\"stylesheet\" type=\"text/css\" href=\"#{$wiki.cgibase}/#{i}\" />"
   end.join("\n")
-  cgi.out({"type"=>"text/html","charset"=>"utf-8"}) {
+  cgi.out({"content-type"=>"text/html","charset"=>"utf-8"}) {
     ERB.new(<<END).result(binding)
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
