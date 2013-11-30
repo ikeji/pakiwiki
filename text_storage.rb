@@ -84,7 +84,7 @@ class TextSnapshot < Snapshot
   end
 
   def time
-    if(@fname=~/\.(\d+)@\d+\.txt/)
+    if(@fname=~/.*\.(\d+)\.txt/)
       return Time.at($1.to_i)
     else
       return File.stat(DATA_PATH + @fname).mtime
