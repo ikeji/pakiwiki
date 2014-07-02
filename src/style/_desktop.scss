@@ -6,7 +6,10 @@ $icolor: #fff;
 $icolor2: #fff;
 $icolor3: #fff;
 
+$main_margin: 15px;
+
 @media (min-width: 641px) {
+/* Shared for whole desktop. */
 
 @mixin clearfix {
   zoom: 1;
@@ -31,18 +34,18 @@ body {
 header {
   background: $color3;
   color: $icolor3;
-  padding: 15px 0;
-  margin: 0 auto 15px auto;
+  padding: $main_margin 0;
+  margin: 0 auto $main_margin auto;
   h1 {
     margin: 0 auto;
-    padding: 15px;
+    padding: $main_margin;
     font-size: 200%;
     font: "Zapf Chancery", cursive;
   }
 }
 
 .notice {
-  margin: 0 auto 15px auto;
+  margin: 0 auto $main_margin auto;
   background: $color;
   color: $icolor;
   padding: 15px;
@@ -50,23 +53,24 @@ header {
 
 .content {
   @include clearfix;
-  padding: 15px;
-  margin: 0 auto 15px auto;
+  padding: $main_margin;
+  margin: 0 auto $main_margin auto;
   background: #fff;
 }
 
 .main {
   float: left;
+  padding-bottom: $main_margin*2;
 }
 
 p {
-  margin-left: 15px;
+  margin-left: $main_margin;
 }
 
 footer {
   background: $color3;
-  margin-top: 15px;
-  padding: 15px;
+  margin-top: $main_margin;
+  padding: $main_margin;
   color: $icolor3;
   text-align: center;
 }
@@ -77,8 +81,8 @@ h2,h3 {
   font-weight: bold;
   height: 46px;
   overflow: hidden;
-  border-left: 15px solid $color2;
-  margin: 15px 0px;
+  border-left: $main_margin solid $color2;
+  margin: $main_margin 0px;
   &:before {
     content: ' ';
     border: 23px solid transparent;
@@ -104,7 +108,7 @@ h4,h5 {
   border-left: 2px solid $color;
   line-height: 100%;
   padding: 5px;
-  margin: 15px 0px;
+  margin: $main_margin 0px;
 
 }
 
@@ -117,7 +121,7 @@ h4,h5 {
 
 @media (min-width: 641px) and (max-width: 1023px) {
 
-$width: 640px - 64px - 15px*2;
+$width: 640px - 64px - $main_margin*2;
 
 .content {
   width: $width;
@@ -168,9 +172,10 @@ header h1 {
 }
 
 .menu {
-  padding-top: 15px;
+  border-top: $main_margin solid $bg;
+  padding: $main_margin*2;
   clear: both;
-  margin-left: -15px;
+  margin: 0 -15px;
   .sec {
     width: floor(($width - 15px) / 2);
     float: left;
@@ -204,9 +209,6 @@ nav {
   width: 200px;
   margin-left: 15px;
 }
-.menu {
-  margin-left: $main_width;
-}
 .edit {
   margin-top: -15px;
 }
@@ -237,7 +239,8 @@ header h1 {
   margin-left: 15px;
 }
 .menu {
-  margin-left: $main_width;
+  margin-left: $main_width + 15px;
+  width: 200px;
 }
 .edit {
   margin-top: -15px;
