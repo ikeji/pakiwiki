@@ -1,11 +1,11 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    bson (1.8.5)
-    bson_ext (1.8.5)
-      bson (~> 1.8.5)
-    mongo (1.8.5)
-      bson (~> 1.8.5)
+    bson (1.10.2)
+    bson_ext (1.10.2)
+      bson (~> 1.10.2)
+    mongo (1.10.2)
+      bson (= 1.10.2)
     rack (1.5.2)
 
 PLATFORMS
