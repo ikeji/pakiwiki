@@ -1,7 +1,5 @@
 # coding: UTF-8
 
-require 'iconv'
-
 URL_MATCH = (/\A(http|https|ftp|skype|callto|mailto):[A-Za-z0-9:\/?#\[\]@~$&'()*+,;=%._^\-]*\Z/m)
 MAILTO_MATCH = (/\Amailto:([A-Za-z0-9:\/?#\[\]@~$&'()*+,;=%._^\-]*)\Z/m)
 
@@ -14,7 +12,7 @@ def inline_link(element)
   if(page =~ Regexp.new("\\A(#{interwiki_tag}):(.*)\\Z"))
     target_page = $1
     target_name = $2
-    target = Iconv.conv(interwiki[target_page][1],"UTF-8",target_name) rescue target_name
+    target = target_name.encode(interwiki[target_page][1]) rescue target_name
     href = interwiki[target_page][0] + CGI.escape(target)
     return ["a",{"href"=>href,"rel"=>"nofollow","class"=>"outlink"},element.innerYATML]
   end
