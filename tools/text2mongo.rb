@@ -8,11 +8,14 @@ require '../text_storage.rb'
 require 'mongo'
 require 'uri'
     
-fail 'MONGOHQ_URL needed' unless (ENV['MONGOHQ_URL'] != nil)
-db = URI.parse(ENV['MONGOHQ_URL'])
-db_name = db.path.gsub(/^\//, '')
-$db = Mongo::Connection.new(db.host, db.port).db(db_name)
-$db.authenticate(db.user, db.password) unless (db.user.nil? || db.user.nil?)
+if (ENV['MONGOHQ_URL'] != nil)
+  db = URI.parse(ENV['MONGOHQ_URL'])
+  db_name = db.path.gsub(/^\//, '')
+  $db = Mongo::Connection.new(db.host, db.port).db(db_name)
+  $db.authenticate(db.user, db.password) unless (db.user.nil? || db.user.nil?)
+else
+  $db = Mongo::Connection.new().db('wikidb')
+end
 $coll = $db['pages']
 
 db = TextStorage.new()
