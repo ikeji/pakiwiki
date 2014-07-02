@@ -1,14 +1,13 @@
 require "json"
 
 def action_fulldump()
-#  page = $storage.get_page($wiki.page)
-#  snapshot = page.last_snapshot()
   output = {}
   $storage.list().each do |page|
     output[page.page_title] =
       page.snapshot_list.map do |s|
         {
           "time" => s.time,
+          "unixtime" => s.time.to_i,
           "data" => s.data
         }
       end
