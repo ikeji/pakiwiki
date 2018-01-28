@@ -37,13 +37,13 @@ class MongoPage < Page
   end
 
   def last_snapshot()
-    doc = @coll.find_one({'title' => @title}, {:sort => [['time', -1]]})
+    doc = @coll.find({'title' => @title}, {:sort => {'time'=> -1}}).first
     return nil if doc == nil
     return MongoSnapshot.new(doc)
   end
 
   def update_data(data)
-    @coll.save({
+    @coll.insert_one({
       'title' => @title,
       'time' => Time.now,
       'data' => data
@@ -56,7 +56,7 @@ class MongoPage < Page
 
   def snapshot_list()
     return @coll.find({'title' => @title},
-                      {:sort => [['time', -1]]}).map do|doc|
+                      {:sort => {'time' => -1}}).map do|doc|
       MongoSnapshot.new(doc)
     end
   end
