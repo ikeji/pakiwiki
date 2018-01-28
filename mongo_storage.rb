@@ -7,15 +7,12 @@ end
 
 class MongoStorage < Storage
   def initialize()
-    if (ENV['MONGOHQ_URL'] != nil)
-      db = URI.parse(ENV['MONGOHQ_URL'])
-      db_name = db.path.gsub(/^\//, '')
-      @db = Mongo::Connection.new(db.host, db.port).db(db_name)
-      @db.authenticate(db.user, db.password) unless (db.user.nil? || db.user.nil?)
+    if (ENV['MONGODB_URI'] != nil)
+      @db = Mongo::Client.new(ENV['MONGODB_URI'])
     else
-      @db = Mongo::Connection.new().db('wikidb')
+      @db = Mongo::Client.new().db('wikidb')
     end
-    @coll = @db['pages']
+    @coll = @db[:pages]
   end
 
   def get_page(name)

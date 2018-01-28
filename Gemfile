@@ -1,4 +1,4 @@
-ruby '2.1.2'
+ruby '2.3.5'
 source 'https://rubygems.org'
 gem 'rack'
 gem 'mongo'

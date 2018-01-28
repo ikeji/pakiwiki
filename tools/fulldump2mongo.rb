@@ -1,4 +1,4 @@
-#!/usr/local/bin/ruby
+# !/usr/local/bin/ruby
 # coding: UTF-8
 
 
@@ -11,14 +11,11 @@ require 'uri'
 require 'json'
     
 if (ENV['MONGOHQ_URL'] != nil)
-  db = URI.parse(ENV['MONGOHQ_URL'])
-  db_name = db.path.gsub(/^\//, '')
-  $db = Mongo::Connection.new(db.host, db.port).db(db_name)
-  $db.authenticate(db.user, db.password) unless (db.user.nil? || db.user.nil?)
+  $db = Mongo::Client.new(ENV['MONGOHQ_URL'])
 else
-  $db = Mongo::Connection.new().db('wikidb')
+  $db = Mongo::Client.new().db('wikidb')
 end
-$coll = $db['pages']
+$coll = $db[:pages]
 
 data = JSON.parse(File.read(INPUT_FILE))
 
@@ -28,7 +25,7 @@ data.each_pair do |k,vs|
   vs.each do |v|
     time = Time.at(v['unixtime'])
     data = v['data']
-    $coll.save({
+    $coll.insert_one({
       'title' => title,
       'time' => time,
       'data' => data
