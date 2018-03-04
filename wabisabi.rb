@@ -7,7 +7,7 @@ class WabisabiConverter
         "<" + CGI.escapeHTML(e[0]) + 
           if(e.size>=2)
             e[1].keys.map do |k|
-              " " + CGI.escapeHTML(k) + "=\"" + CGI.escapeHTML(e[1][k]) + "\""
+              " " + CGI.escapeHTML(k.to_s) + "=\"" + CGI.escapeHTML(e[1][k]) + "\""
             end.join("")
           else
             ""
