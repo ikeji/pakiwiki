@@ -5,4 +5,4 @@ clean:
 
 style/main.css: src/style/main.scss
 	mkdir style
-	scss -t compressed src/style/main.scss style/main.css
+	./vendor/bundle/ruby/2.3.0/bin/scss -t compressed src/style/main.scss style/main.css
