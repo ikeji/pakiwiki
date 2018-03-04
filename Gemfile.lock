@@ -3,9 +3,18 @@ GEM
   specs:
     bson (4.3.0)
     bson_ext (1.5.1)
+    ffi (1.9.23)
     mongo (2.5.0)
       bson (>= 4.3.0, < 5.0.0)
     rack (2.0.3)
+    rb-fsevent (0.10.3)
+    rb-inotify (0.9.10)
+      ffi (>= 0.5.0, < 2)
+    sass (3.5.5)
+      sass-listen (~> 4.0.0)
+    sass-listen (4.0.0)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
 
 PLATFORMS
   ruby
@@ -14,6 +23,7 @@ DEPENDENCIES
   bson_ext
   mongo
   rack
+  sass
 
 RUBY VERSION
    ruby 2.3.5p376

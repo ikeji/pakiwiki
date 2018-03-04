@@ -4,7 +4,8 @@ clean:
 	rm -rf style/main.css style/main.js
 
 style/main.css: src/style/*
-	scss -t compressed src/style/main.scss style/main.css
+	mkdir style
+	./vendor/bundle/ruby/2.3.0/bin/scss -t compressed src/style/main.scss style/main.css
 
 style/main.js: src/javascript/wiki*
 	python src/javascript/closure-library/closure/bin/build/closurebuilder.py \
@@ -22,3 +23,6 @@ lint:
 		--strict \
 		--jslint_error=all \
 		-r src/javascript/wiki/
+
+serve: all
+	./vendor/bundle/ruby/2.3.0/bin/rackup

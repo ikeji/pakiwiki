@@ -11,9 +11,9 @@ WIKITITLE = "IKeJI Wiki 2nd"
 
 # Storage
 # You must select one storage.
-#STORAGE = TextStorage
+STORAGE = TextStorage
 #STORAGE = DBStorage
-STORAGE = MongoStorage
+#STORAGE = MongoStorage
 
 # Using TextStorage
 ENABLE_CACHE = true
