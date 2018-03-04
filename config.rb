@@ -11,9 +11,9 @@ WIKITITLE = "PakiWiki Web"
 
 # Storage
 # You must select one storage.
-#STORAGE = TextStorage
+STORAGE = TextStorage
 #STORAGE = DBStorage
-STORAGE = MongoStorage
+#STORAGE = MongoStorage
 
 # Using TextStorage
 ENABLE_CACHE = true
